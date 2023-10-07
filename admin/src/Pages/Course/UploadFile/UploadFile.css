@@ -1,0 +1,267 @@
+.container-form-title {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: start;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 30px;
+  align-items: flex-start;
+  gap: 30px;
+}
+.input-title-quizz {
+  padding: 5px;
+  width: 100%;
+}
+.container-add-question {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: start;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: start;
+  flex-wrap: wrap;
+}
+.container-proposition-question {
+  justify-content: space-between;
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.input-question-quizz {
+  padding: 5px;
+  width: 100%;
+}
+.btn-add-suggest {
+  padding: 10px;
+  background-color: rgb(38, 94, 250);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.input-suggest-quizz {
+  padding: 5px;
+}
+.container-btn-quizz {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+.btn-add-question {
+  padding: 10px;
+  background-color: rgb(38, 94, 250);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+/* Style for UploadFile */
+.title {
+  padding: 30px;
+}
+
+.alert-msg-box {
+  width: 25%;
+  top: 5px;
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  padding: 20px;
+  height: 3px;
+  background-color: #2ba339b5;
+  color: white;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.alert-msg-box::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  padding: 10px;
+  right: 16px;
+  background-image: url(https://www.svgrepo.com/show/502298/cancelminor.svg);
+  background-size: cover;
+  cursor: pointer;
+}
+
+.alert-msg-box.show {
+  opacity: 1; /* Set opacity to 1 to show the box */
+}
+.success-message {
+  text-align: center;
+}
+.float {
+  position: fixed;
+  right: 20px;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #7e8ccc;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-back:hover {
+  background-color: #5b679d;
+}
+
+.enabled-button {
+  background-color: #007bff; /* Example background color for enabled button */
+  color: #fff; /* Example text color for enabled button */
+  cursor: pointer;
+}
+
+/* Define styles for the disabled button */
+.disabled-button {
+  /* background-color: #ccc; Example background color for disabled button */
+  /* color: #888; Example text color for disabled button */
+  cursor: not-allowed;
+  padding: 10px;
+  background-color: rgb(172 181 172);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.btn-upload {
+  padding: 10px;
+  background-color: rgb(43, 163, 57);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.btn-upload:hover {
+  background-color: rgb(33, 134, 44);
+}
+.hidden {
+  display: none;
+}
+
+/* Style the label to look like a button */
+.file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #53538e;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.file-label:hover {
+  background-color: #474799;
+}
+
+.file-input-container {
+  margin: 0 auto;
+}
+
+/* Style the selected file text (optional) */
+.selected-file {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+/* Style for FileSection */
+
+.m-left-3 {
+  margin-left: 45px;
+}
+
+.m-left {
+  margin-left: 15px;
+}
+
+.m-top {
+  margin-top: 15px;
+}
+
+.m-top-2 {
+  margin-top: 30px;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-btween {
+  justify-content: space-between;
+}
+
+.btn-delete-file {
+  padding: 10px;
+  background-color: rgb(235, 80, 80);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.btn-delete-file:hover {
+  background-color: rgb(187, 49, 49);
+}
+
+.btn-download {
+  padding: 10px;
+  background-color: rgb(38, 94, 250);
+  color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.btn-download:hover {
+  background-color: rgb(24, 67, 185);
+}
+
+ul {
+  list-style: none;
+  width: 80%;
+}
+
+ul li {
+  width: 100%;
+}
+
+.download-link {
+  display: inline-block;
+  color: rgb(38, 94, 250);
+  text-decoration: underline;
+  cursor: pointer;
+  width: 50%;
+}
+a.download-link:hover {
+  color: rgb(9, 9, 142);
+}
+
+.padding-x-1 {
+  width: 20%;
+  padding: 0px 15px 0 15px;
+}
+
+.text-center {
+  text-align: center;
+}

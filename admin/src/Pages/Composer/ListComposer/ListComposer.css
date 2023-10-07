@@ -1,0 +1,86 @@
+
+.container-list-composer{
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+}
+.title-page-list-composer{
+    width: 80%;
+    text-align: start;
+}
+.header-list-composer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-add-composer{
+    padding: 10px;
+    background-color: rgb(38, 94, 250);
+    color: #ffffff;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+.cont-btn-add-composer{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: start;
+}
+.li-list-composer{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: start;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border: 1px solid rgb(233, 233, 233) ;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+}
+.title-composer{
+    text-align: start;
+}
+.description-composer{
+    text-align: start;
+}
+.course-id-course-title{
+    list-style: none;
+    text-align: start;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    row-gap: 30px;
+    margin-bottom: 30px;
+}
+.container-btn-list-composer{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-delete-composer{
+    background-color: rgb(235, 80, 80);
+    color: #ffffff; 
+    border-radius: 10px;
+    border: none;
+    padding:10px;
+    cursor: pointer;
+    text-align: start;
+}

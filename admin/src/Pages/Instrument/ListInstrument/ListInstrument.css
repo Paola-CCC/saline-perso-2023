@@ -1,0 +1,112 @@
+*{
+    text-align: center;
+}
+.instruments{
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+}
+.instruments-header-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    align-items: center;
+}
+.title-pages{
+    display: flex;
+    justify-content: start;
+    width: 80%;
+    margin: 0;
+    text-align: start;
+   
+}
+.ul-listinstrument{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    list-style-type: none;
+    padding:0;
+}
+.li-listinstrument{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    border: 1px solid rgb(233, 233, 233) ;
+    border-radius: 10px;
+}
+.btnlistinstrument{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.a-list-instrument-btn{
+    text-decoration: none;
+}
+.delete-btn-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 10px;
+    background-color: rgb(235, 80, 80);
+    color: #ffffff; 
+    border-radius: 10px;
+    border: none;
+    padding:15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.edit-btn-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 10px;
+    background-color: rgb(52, 188, 89);
+    color: #ffffff; 
+    border-radius: 10px;
+    border: none;
+    padding:15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.add-intrument-list{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: flex-end;
+
+}
+.add-btn-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 10px;
+    background-color: rgb(38, 94, 250);
+    color: #ffffff; 
+    border-radius: 10px;
+    border: none;
+    padding:15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+@media screen and (max-width: 425px) {
+   
+}

@@ -1,0 +1,11 @@
+.sidebar-content {
+    width: 20%;
+    padding: 20px;
+    float: left; 
+    position: fixed;
+}
+  
+.main-content {
+    width: 80%; 
+    margin-left: 250px; 
+}
