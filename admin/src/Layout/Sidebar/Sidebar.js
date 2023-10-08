@@ -8,7 +8,7 @@ import Logo from '../../assets/svg/Logo';
 const Sidebar = () => {
   const {isAuthenticated,handleLogout} = useContext(AuthContext);
   return (
-    <div className="sidebar">
+    <div className="sidebar" data-testid="Sidebar">
       <ul className="ul-sidebar">
             <li className="li-sidebar-logo"> 
                 <Link className="a-sidebar" to="/courses"><Logo/></Link>

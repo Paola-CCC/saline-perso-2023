@@ -3,8 +3,9 @@ import "./Button.scss";
 import classNames from "classnames";
 
 interface ButtonProps {
-  children: ReactNode;
-  className?: string;
+  children: ReactNode,
+  kind?: string;
+  stylesBtn?: string;
   type?: "button" | "submit" | "reset";
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
@@ -13,16 +14,17 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  className,
+  kind,
+  stylesBtn,
   type = "button",
   onClick,
   disabled = false,
   id,
 }) => {
   const btnClass = classNames("button", {
-    primary: className === "primary",
-    secondary: className === "secondary",
-    tertiary: className === "tertiary",
+    primary: kind === "primary",
+    secondary: kind === "secondary",
+    tertiary: kind === "tertiary",
   });
 
   return (
