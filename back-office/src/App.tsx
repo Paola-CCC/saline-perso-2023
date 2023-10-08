@@ -1,14 +1,12 @@
 import './App.scss';
-import Sidebar from './components/organims/Sidebar/Sidebar';
-import RoutesNavigation from './routes/RoutesNavigation';
+import Layout from './layout/Layout';
 
 
 const App: React.FC = () => {
 
   return (
     <div className="element">
-        <Sidebar />
-        {/* <RoutesNavigation /> */}
+        <Layout />
     </div>
   );
 };

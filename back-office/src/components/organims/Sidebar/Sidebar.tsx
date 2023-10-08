@@ -66,11 +66,8 @@ const Sidebar: FC<SidebarProps> = () => {
 
   })
 
-
-
   return (
-    <div className="sidebar-container" data-testid="Sidebar">
-    <h1> LOGO</h1>
+    <aside className="sidebar-container" data-testid="Sidebar">
 
     <ul className="sidebar-list">
 
@@ -85,7 +82,7 @@ const Sidebar: FC<SidebarProps> = () => {
         </li>
 
         <li className="sidebar-item">
-          <button className="accordion" id='course-settings' >Aprrentissage</button>
+          <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >Aprrentissage</button>
           <ul className="panel">
             <li className="sidebar-item-nested">
                 <Link className="link-sidebar" to="/courses">Cours</Link>
@@ -104,7 +101,7 @@ const Sidebar: FC<SidebarProps> = () => {
         </li>
 
         <li className="sidebar-item">
-          <button className="accordion" id='user-settings'  >Gestion des Utilisateurs</button>
+          <button className="accordion" id='user-settings' onClick={(e)=> addClassActive('/professors')}   >Gestion des Utilisateurs</button>
           <ul className="panel">
             <li className="sidebar-item-nested">
                 <Link className="link-sidebar" to="/professors">Professeurs</Link>
@@ -128,7 +125,7 @@ const Sidebar: FC<SidebarProps> = () => {
           </button>
         </li>
     </ul>
-  </div>
+  </aside>
 
   )
 

@@ -26,7 +26,7 @@ const CoursesList: FC<CoursesListProps> = () => {
   }
 
   const datas = faker.helpers.multiple(createRandomUser, {
-    count: 20,
+    count: 6,
   })
 
   return (      
