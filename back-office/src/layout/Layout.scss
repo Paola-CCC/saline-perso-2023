@@ -1,6 +1,4 @@
-
 .global-container {
-
     display: flex;
     flex-direction: row;
     
@@ -10,8 +8,17 @@
         min-width: 230px;
     }
 
-    main {
+    div.main-content {
         width: 82%;
-        margin: 20px;
+        nav {
+            width: 100%;
+            background-color: rgb(249, 249, 249);
+            padding: 15px 0;
+            box-shadow: 0px 0px 10px 0px rgba(197, 197, 197, 0.45);    
+            border-bottom: 1px solid #e6e6e6ed; 
+        }
+        main {
+            padding: 35px 20px;
+        }
     }
 }
