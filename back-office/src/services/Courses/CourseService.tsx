@@ -1,11 +1,11 @@
 import AxiosClient from "../AxiosClient";
 
-const URL = process.env.REACT_APP_API_URL;
+const URL = 'http://localhost:1234';
 const httpClient = AxiosClient;
 
 export const courseAll = async () => {
   try {
-    const response = await httpClient.get(`${URL}/courses`);
+    const response = await httpClient.get(`${URL}/api/courses`);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {
@@ -18,7 +18,7 @@ export const courseAll = async () => {
 
 export const courseAdd = async (data: Object) => {
   try {
-    const response = await httpClient.post(`${URL}/new-course`, data);
+    const response = await httpClient.post(`${URL}/api/new-course`, data);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {
