@@ -21,7 +21,7 @@ use Symfony\Component\Mime\Email;
 
 
 
-#[Route('/api/')]
+#[Route('/api')]
 class UserController extends AbstractController
 {
     private $doctrine;
