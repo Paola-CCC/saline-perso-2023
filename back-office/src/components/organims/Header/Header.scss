@@ -1,10 +1,12 @@
 .Header {
-    position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content:space-between;
     padding: 0 20px;
-    button {
+
+    div.user-wrapper {
+      position: relative;
+      button:nth-last-of-type(1) {
         // background-color: white;
         border: none;
         // border: 1px solid #cdcdcd;
@@ -108,4 +110,5 @@
           width: 160px;
         }
       }
+    }
 }

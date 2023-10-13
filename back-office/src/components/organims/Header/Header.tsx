@@ -3,6 +3,9 @@ import './Header.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import MenuIcons from '../../atoms/MenuIcons/MenuIcons';
+import { useEffectsContext } from '../../../contexts/EffectsContext';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 interface HeaderProps {}
 
@@ -10,8 +13,8 @@ const Header: FC<HeaderProps> = () => {
 
   // const {isAuthenticated,handleLogout,userRole ,username} = useContext(AuthContext);
 const [ subnavbarIsOpen, setSubnavbarIsOpen ] = useState(true);
-const [ username, setUsername ] = useState('Paola CYPRIEN');
-const [ isAuthenticated, setIsAuthenticated ] = useState(true);
+const { canOpenSidebar} = useEffectsContext();
+const { username, isAuthenticated } = useAuthContext();
 
 
   const getFirstLetters = (value :any) => {
@@ -24,36 +27,37 @@ const [ isAuthenticated, setIsAuthenticated ] = useState(true);
   }
   return (
   <div className="Header" data-testid="Header">
-    <button onClick={() => setSubnavbarIsOpen(!subnavbarIsOpen)} tabIndex={0}>
-      <Link to="#" className='gestion' >
-        <FontAwesomeIcon icon={faUser} /> 
-        <span id="username" className='desktop'> {username && username !== undefined ? username : ''  }    </span>   
-        <span id="username" className='smartphone'> {username && username !== undefined ? getFirstLetters(username) : ''  }    </span>
-        <span className={`chevron ${ subnavbarIsOpen ? 'open' : ''}`} ></span>
-      </Link>
-    </button>
+    <MenuIcons variant='open' handleClick={canOpenSidebar}/>
 
-    <ul className={`sub-menu ${ subnavbarIsOpen ? 'open' : ''}`}  tabIndex={0} >
-              { isAuthenticated && (    
-                <li >
-                  <Link to="/espace-personnel"> Espace personnel  </Link> 
+    <div className='user-wrapper'>
+      <button onClick={() => setSubnavbarIsOpen(!subnavbarIsOpen)} tabIndex={0}>
+        <Link to="#" className='gestion' >
+          <FontAwesomeIcon icon={faUser} /> 
+          <span id="username" className='desktop'> {username && username !== undefined ? username : '' }    </span>   
+          <span id="username" className='smartphone'> {username && username !== undefined ? getFirstLetters(username) : ''  }    </span>
+          <span className={`chevron ${ subnavbarIsOpen ? 'open' : ''}`} ></span>
+        </Link>
+      </button>
+
+      <ul className={`sub-menu ${ subnavbarIsOpen ? 'open' : ''}`}  tabIndex={0} >
+                  <li >
+                    <Link to="/espace-personnel"> Espace personnel  </Link> 
+                  </li>
+            
+                <li>
+                  <Link to="/messagerie">Messagerie</Link>
                 </li>
-              )}
-              {( isAuthenticated !== false && isAuthenticated !== null) && (
-              <li>
-                <Link to="/messagerie">Messagerie</Link>
-              </li>
-              )}
+                
 
-              {(isAuthenticated !== false && isAuthenticated !== null) && (
-              <li>
-                <Link to="/" >
-                Se déconnecter
-                </Link>
-              </li> )}
+                <li>
+                  <Link to="/" >
+                  Se déconnecter
+                  </Link>
+                </li> 
 
-              
-          </ul>
+                
+      </ul>
+    </div>
   </div>
 )};
 

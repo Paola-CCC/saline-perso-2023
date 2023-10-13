@@ -2,18 +2,20 @@ import { FC, useEffect } from 'react';
 import './Sidebar.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { useGoNavigate } from '../../../hooks/Navigation';
+import { useEffectsContext } from '../../../contexts/EffectsContext';
+import MenuIcons from '../../atoms/MenuIcons/MenuIcons';
 
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = () => {
 
   const { goTo } = useGoNavigate();
+  const { canOpenSidebar,sidebarIsOpen} = useEffectsContext();
   const location = useLocation();
   let path = location.pathname.split('/');
   let currentPath = Array.from(path) && Array.from(path)[0] === '' 
   ? Array.from(path)[1] 
   : 'empty';
-
 
 
   const handleOpenPanel = () => {
@@ -67,65 +69,68 @@ const Sidebar: FC<SidebarProps> = () => {
   })
 
   return (
-    <aside className="sidebar-container" data-testid="Sidebar">
+    <aside className={`sidebar-container ${sidebarIsOpen ? 'open' : 'close'}`} data-testid="Sidebar">
 
-    <ul className="sidebar-list">
+      <div className='zone-btn-close'>
+          <MenuIcons variant='closed' handleClick={canOpenSidebar} />
+      </div>
 
-        <li className="sidebar-item">
-          <button 
+      <ul className="sidebar-list">
+          <li className="sidebar-item">
+            <button 
+              className="accordion" 
+              id='homepage-datas' 
+              onClick={(e)=> addClassActive('/homepage')}
+            > 
+              Tableau de bord
+            </button>
+          </li>
+
+          <li className="sidebar-item">
+            <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >Aprrentissage</button>
+            <ul className="panel">
+              <li className="sidebar-item-nested">
+                  <Link className="link-sidebar" to="/courses">Cours</Link>
+              </li>
+              <li className="sidebar-item-nested">
+                <Link className="link-sidebar" to="/instruments">Instruments</Link>
+              </li>
+
+              <li className="sidebar-item-nested">
+                  <Link className="link-sidebar" to="/categories">Categories</Link>
+              </li>
+              <li className="sidebar-item-nested">
+                  <Link className="link-sidebar" to="/composers">Compositeurs</Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="sidebar-item">
+            <button className="accordion" id='user-settings' onClick={(e)=> addClassActive('/professors')}   >Gestion des Utilisateurs</button>
+            <ul className="panel">
+              <li className="sidebar-item-nested">
+                  <Link className="link-sidebar" to="/professors">Professeurs</Link>
+              </li>
+              <li className="sidebar-item-nested">
+                <Link className="link-sidebar" to="/students">Élèves</Link>
+              </li>
+              <li className="sidebar-item-nested">
+                <Link className="link-sidebar" to="/entreprise">Équipe entreprise</Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="sidebar-item">
+            <button 
             className="accordion" 
-            id='homepage-datas' 
-            onClick={(e)=> addClassActive('/homepage')}
+            id='forum-settings'  
+            onClick={(e)=> addClassActive('/forum')} 
           > 
-            Tableau de bord
-          </button>
-        </li>
-
-        <li className="sidebar-item">
-          <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >Aprrentissage</button>
-          <ul className="panel">
-            <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/courses">Cours</Link>
-            </li>
-            <li className="sidebar-item-nested">
-              <Link className="link-sidebar" to="/instruments">Instruments</Link>
-            </li>
-
-            <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/categories">Categories</Link>
-            </li>
-            <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/composers">Compositeurs</Link>
-            </li>
-          </ul>
-        </li>
-
-        <li className="sidebar-item">
-          <button className="accordion" id='user-settings' onClick={(e)=> addClassActive('/professors')}   >Gestion des Utilisateurs</button>
-          <ul className="panel">
-            <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/professors">Professeurs</Link>
-            </li>
-            <li className="sidebar-item-nested">
-              <Link className="link-sidebar" to="/students">Élèves</Link>
-            </li>
-            <li className="sidebar-item-nested">
-              <Link className="link-sidebar" to="/entreprise">Équipe entreprise</Link>
-            </li>
-          </ul>
-        </li>
-
-        <li className="sidebar-item">
-          <button 
-          className="accordion" 
-          id='forum-settings'  
-          onClick={(e)=> addClassActive('/forum')} 
-        > 
-          Forum
-          </button>
-        </li>
-    </ul>
-  </aside>
+            Forum
+            </button>
+          </li>
+      </ul>
+    </aside>
 
   )
 
