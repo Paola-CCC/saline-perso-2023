@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const jwtToken = localStorage.getItem("jwt") !== '' ? localStorage.getItem("jwt") : '';
+const jwtToken = localStorage.getItem("jwt") && localStorage.getItem("jwt") !== '' ? localStorage.getItem("jwt") : '';
 const parsedToken = jwtToken ? JSON.parse(jwtToken) : "";
 
 const AxiosClient = {

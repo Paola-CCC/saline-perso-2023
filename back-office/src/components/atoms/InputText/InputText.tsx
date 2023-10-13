@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./InputText.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -7,23 +7,26 @@ import classNames from "classnames";
 
 interface InputTextProps {
   label?: string,
-  placeholder?: string
-  getValues: (updatedOptions: any) => void;
-  kind?: 'search' | 'text'
+  value?: string,
+  placeholder?: string,
+  isRequired?: boolean,
+  name?: string,
+  errorText?: string,
+  type?: 'search' | 'text' | 'password'
+  onChange: (updatedOptions: any) => void;
 }
 
-const InputText: React.FC<InputTextProps> = ({ label, placeholder, kind, getValues}) => {
+const InputText: React.FC<InputTextProps> = ({ label, placeholder, value, type, isRequired, name, errorText, onChange }) => {
 
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  // const [selectedOption, setSelectedOption] = useState<string>('');
 
-  useEffect(() => {
-    getValues(selectedOption);
-  })
-  
+  // useEffect(() => {
+  //   getValues(selectedOption);
+  // })
+
   const btnClassInput = classNames("grp-input-search", {
-    inputText: kind === "text",
-    inputSearch: kind === "search",
-
+    inputText: type === "text",
+    inputSearch: type === "search",
   });
 
   return (
@@ -31,25 +34,29 @@ const InputText: React.FC<InputTextProps> = ({ label, placeholder, kind, getValu
       {label && label !== '' && (
         <label className="input-text">{label}</label>
       )}
-  
+
       <div className={btnClassInput} tabIndex={1}>
         {
-          kind && kind === 'search' &&
+          type && type === 'search' &&
           <button type="submit" className="icon-search" tabIndex={-1}>
             <FontAwesomeIcon icon={faSearch} flip="horizontal" />
           </button>
         }
         <input
-          type="text"
+          type={ type !== 'text' ? type : 'text' }
           className="input-search-input"
-          value={selectedOption}
+          value={value}
           placeholder={placeholder}
-          name="search"
-          onChange={(e) => setSelectedOption(e.target.value)}
-          tabIndex={-1}
+          name={name}
+          required={isRequired}
+          onChange={onChange}
+          tabIndex={0}
         />
+
+        { errorText && errorText !== "" && (
+          <span> { errorText } </span>
+        )}
       </div>
-    
     </>
 
   );

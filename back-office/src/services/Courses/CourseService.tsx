@@ -3,7 +3,7 @@ import AxiosClient from "../AxiosClient";
 const URL = 'http://localhost:1234';
 const httpClient = AxiosClient;
 
-export const courseAll = async () => {
+const courseAll = async () => {
   try {
     const response = await httpClient.get(`${URL}/api/courses`);
     if (response.status >= 200 && response.status <= 299) {
@@ -16,7 +16,7 @@ export const courseAll = async () => {
   }
 };
 
-export const courseAdd = async (data: Object) => {
+const courseAdd = async (data: Object) => {
   try {
     const response = await httpClient.post(`${URL}/api/new-course`, data);
     if (response.status >= 200 && response.status <= 299) {
@@ -29,7 +29,7 @@ export const courseAdd = async (data: Object) => {
   }
 };
 
-export const courseSearching = async (data: Object) => {
+const courseSearching = async (data: Object) => {
   try {
     const response = await httpClient.post(`${URL}/courses/search`, data);
     if (response.status >= 200 && response.status <= 299) {
@@ -42,7 +42,7 @@ export const courseSearching = async (data: Object) => {
   }
 };
 
-export const courseShow = async (Id: number | string) => {
+const courseShow = async (Id: number | string) => {
   try {
     const response = await httpClient.get(`${URL}/courses/${Id}`);
     if (response.status >= 200 && response.status <= 299) {
@@ -56,7 +56,7 @@ export const courseShow = async (Id: number | string) => {
 };
 
 // récuperer les documents par cours
-export const courseEdit = async ( Id: number | string, data: Object) => {
+const courseEdit = async ( Id: number | string, data: Object) => {
   try {
     const response = await httpClient.put(`${URL}/courses/${Id}`,data);
 
@@ -71,7 +71,7 @@ export const courseEdit = async ( Id: number | string, data: Object) => {
 };
 
 // récuperer les documents par cours
-export const courseGetFiles = async (Id: number | string) => {
+const courseGetFiles = async (Id: number | string) => {
   try {
     const response = await httpClient.get(`${URL}/course/${Id}/fileuploads`);
 
@@ -85,7 +85,7 @@ export const courseGetFiles = async (Id: number | string) => {
   }
 };
 
-export const courseDelete = async (Id: number | string) => {
+const courseDelete = async (Id: number | string) => {
   try {
     const response = await httpClient.delete(`${URL}/courses/${Id}`);
     if (response.status >= 200 && response.status <= 299) {

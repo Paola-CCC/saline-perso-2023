@@ -7,3 +7,5 @@ export { default as ListInstrument } from './ListInstrument/ListInstrument';
 export { default as CourseAdd } from './CourseAdd/CourseAdd';
 export { default as CourseEdit } from './CourseEdit/CourseEdit';
 export { default as CourseDelete } from './CourseDelete/CourseDelete';
+export { default as Login } from './Login/Login';
+export { default as Register } from './Register/Register';

@@ -16,14 +16,19 @@ const CoursesList: FC<CoursesListProps> = () => {
       let datas = await courseService.courseAll();
       setDatas(datas);
     };
-    
-    loadDatas();
 
+    if(localStorage.getItem("jwt") && localStorage.getItem("jwt") !== '') {
+      
+      loadDatas();
+
+    }
   },[])
 
   return (      
       <ul className='all-courses'>
-        {datas.map((value, index) => (
+
+        { datas && Object.values(datas).length > 0 && (
+         datas.map((value, index) => (
           <li key={index} >
             <CardCourse
               id={value.id}
@@ -36,7 +41,10 @@ const CoursesList: FC<CoursesListProps> = () => {
               professorName={ `${value.professor.firstName} ${value.professor.lastName}`}
               />
           </li>
-        ))}
+        ))
+
+        )}
+
         </ul>
   );
 

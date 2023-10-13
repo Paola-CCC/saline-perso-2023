@@ -2,6 +2,7 @@ import React, {  useCallback, useContext, useEffect, useMemo } from 'react';
 import { createContext,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import { usersService } from '../services/Users/UsersService';
 // import services from '../services';
 
 const AuthContext = createContext();
@@ -12,14 +13,15 @@ const useAuthContext = () => useContext(AuthContext);
 */
 const AuthContextProvider = ({children}) => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userId, setUserId] = useState(null);
     const [userRole, setUserRole] = useState([]);
     const [username, setUsername] = useState('Jeanne DUPONT');
 
     const navigate = useNavigate();
-    const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
-    const usernameStored = localStorage.getItem('username') ? localStorage.getItem('username') : '';
+    // const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
+    
+    // const usernameStored = localStorage.getItem('username') ? localStorage.getItem('username') : '';
 
 
     /** Retire JWT du localstorage et change la variable du context */
@@ -37,13 +39,13 @@ const AuthContextProvider = ({children}) => {
     }, [navigate]);
 
     
-    // const isJWTinlocalStorage = useCallback(() => {
-    //   if (!localStorage.getItem('jwt')) {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // }, []);
+    const isJWTinlocalStorage = useCallback(() => {
+      if (!localStorage.getItem('jwt')) {
+        return false;
+      } else {
+        return true;
+      }
+    }, []);
 
     // useEffect(() => {
     //   setIsAuthenticated(isJWTinlocalStorage());
@@ -70,6 +72,8 @@ const AuthContextProvider = ({children}) => {
         username,
         setUsername,
         handleLogout,
+        usersService
+
       }),
       [isAuthenticated, userId, userRole , username ,handleLogout]
     );
