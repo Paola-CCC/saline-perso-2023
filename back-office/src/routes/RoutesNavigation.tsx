@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { CourseItem, CoursesList, Homepage, ListCategory, ListComposer, ListInstrument } from '../pages';
+import { CourseAdd, CourseDelete, CourseEdit, CourseItem, CoursesList, Homepage, ListCategory, ListComposer, ListInstrument } from '../pages';
+
 
 
 
@@ -9,7 +10,14 @@ const RoutesNavigation = () => {
     <Routes>
         <Route index path="/" element={<Homepage />} />
         <Route path="courses" element={<CoursesList />} />
-        <Route path="courses/:id" element={<CourseItem />} />
+
+        <Route path="courses/:id" element={<CourseItem />} >
+            <Route path="add" element={<CourseAdd />} />
+            <Route path="edit" element={<CourseEdit />} />
+            <Route path="delete" element={<CourseDelete />} />
+        </Route>
+
+
         <Route path="instruments" element={<ListInstrument />} />
         <Route path="categories" element={<ListCategory />} />
         <Route path="composers" element={<ListComposer />} />
@@ -18,3 +26,4 @@ const RoutesNavigation = () => {
 }
 
 export default RoutesNavigation;
+

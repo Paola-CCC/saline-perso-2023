@@ -55,11 +55,10 @@ class AuthController extends AbstractController
         $user = new User();
         $user->setFirstName($data['firstName']);
         $user->setLastName($data['lastName']);
-        $user->setLastName($data['username']);
-        $email = $data['email'];
-        $user->setEmail($email);
+        $user->setUserName($data['username']);
+        $user->setEmail($data['email']);
 
-        if (str_contains($email, '@saline')) {
+        if (str_contains($data['email'], '@saline')) {
             $user->setRoles(['ROLE_ADMIN']);
         } else {
             $user->setRoles(['ROLE_USER']);
@@ -84,18 +83,18 @@ class AuthController extends AbstractController
             $user->setPassword($hashedPassword);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-                $email = (new Email())
-                ->from('support@salineroyalacademie.com')
-                ->to($user->getEmail())
-                ->subject('Welcome to Our Website')
-                ->html(
-                    $this->renderView(
-                        'email/index.html.twig',
-                        ['user' => $user]
-                    )
-                );
+            //     $email = (new Email())
+            //     ->from('support@salineroyalacademie.com')
+            //     ->to($user->getEmail())
+            //     ->subject('Welcome to Our Website')
+            //     ->html(
+            //         $this->renderView(
+            //             'email/index.html.twig',
+            //             ['user' => $user]
+            //         )
+            //     );
 
-            $this->mailer->send($email); 
+            // $this->mailer->send($email); 
 
             $token = $this->jwtManager->create($user);
     

@@ -21,7 +21,7 @@ use App\Repository\InstrumentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-
+#[Route('/api')]
 class CourseController extends AbstractController
 {
 

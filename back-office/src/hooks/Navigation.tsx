@@ -5,10 +5,10 @@ const useGoNavigate = () => {
 
     const navigate = useNavigate();
 
-    const goTo = ( path : any ,Id : any) => {
-        navigate(`${path}/${Id} `);
+    const navigateTo = ( path : string) => {
+        navigate(`${path}`);
     }
-    return { goTo };
+    return { navigateTo };
 }
 
 export { useGoNavigate }

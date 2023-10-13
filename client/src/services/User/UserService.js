@@ -23,7 +23,7 @@ class UserService
     //OK
     async registerUser (dataUser) {
         try {
-            const response = await this.httpClient.post(`${this.URL}/users/new`, dataUser);
+            const response = await this.httpClient.post(`${this.URL}/api/register`, dataUser);
             if (response.status >= 200 && response.status <= 299) {
                 return response ;
             } else {

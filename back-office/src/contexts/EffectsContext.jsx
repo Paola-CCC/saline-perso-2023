@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { createContext,useState } from 'react';
 
 const EffectsContext = createContext();
@@ -10,9 +9,9 @@ const EffectsContextProvider = ({children}) => {
 
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 
-    const canOpenSidebar = () => {
+    const canOpenSidebar = useCallback(() => {
       setSidebarIsOpen(!sidebarIsOpen);
-    };
+    },[sidebarIsOpen]);
 
     const contextValue = useMemo(() => ({
         sidebarIsOpen,

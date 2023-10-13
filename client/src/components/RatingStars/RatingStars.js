@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RatingStars.scss";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

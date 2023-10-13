@@ -17,10 +17,10 @@ interface CardCourseProps {
 
 const CardCourse : React.FC<CardCourseProps> = ({ id, imgSrc, imgAlt, professorName, title, rating, shortDescription,longDescription }) => {
 
-  const { goTo } = useGoNavigate();
+  const { navigateTo } = useGoNavigate();
 
   const handleClick = () => {
-    goTo('/courses',id );
+    navigateTo(`/courses/${id}`);
   }
 
   return (

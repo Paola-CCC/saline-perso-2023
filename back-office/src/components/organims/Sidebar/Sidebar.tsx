@@ -9,13 +9,11 @@ interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = () => {
 
-  const { goTo } = useGoNavigate();
+  const { navigateTo } = useGoNavigate();
   const { canOpenSidebar,sidebarIsOpen} = useEffectsContext();
   const location = useLocation();
-  let path = location.pathname.split('/');
-  let currentPath = Array.from(path) && Array.from(path)[0] === '' 
-  ? Array.from(path)[1] 
-  : 'empty';
+  const path = location.pathname.split('/');
+  const currentPath = Array.from(path) && Array.from(path)[0] === '' ? Array.from(path)[1] : 'empty';
 
 
   const handleOpenPanel = () => {
@@ -59,14 +57,13 @@ const Sidebar: FC<SidebarProps> = () => {
     }
   };
 
-  const addClassActive = (path : string ) => {
-    goTo(path,3 );
+  const addClassActive = (path: string ) => {
+    navigateTo(path);
   };
 
   useEffect(() => {
     handleOpenPanel();
-
-  })
+  });
 
   return (
     <aside className={`sidebar-container ${sidebarIsOpen ? 'open' : 'close'}`} data-testid="Sidebar">

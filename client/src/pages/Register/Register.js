@@ -35,8 +35,9 @@ const Register = () => {
         let usersData  = {
             "firstName": firstname.value,
             "lastName": lastname.value,
+            "username": firstname.value +' ' +lastname.value,
             "email": email.value,
-            "plainPassword": password,
+            "password": password,
             "instruments": selectedInstruments,
         };
 
