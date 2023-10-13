@@ -21,7 +21,7 @@ use Symfony\Component\Mime\Email;
 
 
 
-#[Route('/api/users')]
+#[Route('/api/')]
 class UserController extends AbstractController
 {
     private $doctrine;
@@ -36,7 +36,7 @@ class UserController extends AbstractController
         
     }
 
-    #[Route('/all', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/users-all', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();
@@ -59,7 +59,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/{userId}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/user/{userId}', name: 'app_user_show', methods: ['GET'])]
     public function show(int $userId, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $user = $userRepository->find($userId);
@@ -74,7 +74,7 @@ class UserController extends AbstractController
 
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['PUT'])]
+    #[Route('user/{id}/edit', name: 'app_user_edit', methods: ['PUT'])]
     public function edit(int $id, Request $request): Response
     {
         $user = $this->doctrine->getRepository(User::class)->find($id);
