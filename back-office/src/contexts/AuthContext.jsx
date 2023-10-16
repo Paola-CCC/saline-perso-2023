@@ -3,7 +3,6 @@ import { createContext,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { usersService } from '../services/Users/UsersService';
-// import services from '../services';
 
 const AuthContext = createContext();
 const useAuthContext = () => useContext(AuthContext);
@@ -19,7 +18,7 @@ const AuthContextProvider = ({children}) => {
     const [username, setUsername] = useState('Jeanne DUPONT');
 
     const navigate = useNavigate();
-    // const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
+    const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
     
     // const usernameStored = localStorage.getItem('username') ? localStorage.getItem('username') : '';
 
@@ -47,17 +46,17 @@ const AuthContextProvider = ({children}) => {
       }
     }, []);
 
-    // useEffect(() => {
-    //   setIsAuthenticated(isJWTinlocalStorage());
+    useEffect(() => {
+      setIsAuthenticated(isJWTinlocalStorage());
 
-    //   if( isAuthenticated ){
-    //     let jwtDecoded  = jwt_decode(JSON.parse(token));
-    //     setUserId(parseInt(jwtDecoded.username));
-    //     setUserRole(jwtDecoded.roles);
-    //     setUsername(usernameStored);
-    //   }
+      if( isAuthenticated ){
+        let jwtDecoded  = jwt_decode(JSON.parse(token));
+        // setUserId(parseInt(jwtDecoded.username));
+        // setUserRole(jwtDecoded.roles);
+        // setUsername(usernameStored);
+      }
 
-    // }, [isJWTinlocalStorage ,token,userId,isAuthenticated,usernameStored ]);
+    }, [isJWTinlocalStorage ,token,userId,isAuthenticated]);
 
   
     /** Permet de stocker les variables du context getter et leur mutateur - fonction qui changent la/les valeurs  */

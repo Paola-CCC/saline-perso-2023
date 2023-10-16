@@ -28,7 +28,7 @@ const CoursesList: FC<CoursesListProps> = () => {
       <ul className='all-courses'>
 
         { datas && Object.values(datas).length > 0 && (
-         datas.map((value, index) => (
+         datas.map((value : any, index) => (
           <li key={index} >
             <CardCourse
               id={value.id}

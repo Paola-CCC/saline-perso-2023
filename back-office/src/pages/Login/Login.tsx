@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -30,7 +30,7 @@ const Login = () => {
         let jwtDecoded :any = jwt_decode(response.token);
         setUserId(jwtDecoded.username);        
         setUserRole(jwtDecoded.roles);
-        navigate("/homepage");
+        navigate("/courses");
 
       } else {
           console.log("Le Token Register est vide");
@@ -74,7 +74,7 @@ const Login = () => {
 
         <p className="link-btn">
           Vous n'avez pas encore de compte ?
-          <Link to="/inscription"> S'inscrire </Link>
+          <Link to="/register"> S'inscrire </Link>
         </p>
       </form>
       <div

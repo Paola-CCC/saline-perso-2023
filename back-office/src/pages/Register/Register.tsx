@@ -185,7 +185,7 @@ const Register = () => {
             </div>
 
 
-            <p className="link-btn">Vous avez déjà un compte ?  <Link  to="/connexion"> Se connecter </Link> </p>
+            <p className="link-btn">Vous avez déjà un compte ?  <Link  to="/login"> Se connecter </Link> </p>
             </form>
             {successRegister !== null && successRegister === false && (
                 <div className={successRegister !== null && successRegister === false ? 'form-arror-msg show' : 'form-arror-msg hidden'}>
