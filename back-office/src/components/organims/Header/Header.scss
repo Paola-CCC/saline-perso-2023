@@ -6,8 +6,7 @@
 
     div.user-wrapper {
       position: relative;
-      button:nth-last-of-type(1) {
-        // background-color: white;
+      > button:nth-last-of-type(1) {
         border: none;
         // border: 1px solid #cdcdcd;
         border: 1px solid rgba(219, 219, 219, 0.929);
@@ -83,7 +82,7 @@
       ul.sub-menu {
         display: none;
         position: absolute;
-        bottom: -140px;
+        bottom: -80px;
         background-color: rgb(255, 255, 255);
         opacity: 0.90;
         padding: 15px 30px;
@@ -94,6 +93,7 @@
         z-index: 999999;
         li {
           padding: 3px 0;
+          text-align: center;
           a {
             font-weight: 500;
             color: #505050;
@@ -104,10 +104,13 @@
             margin: 0;
             
           }
+          button {
+            border: none;
+          }
         }
         &.open {
           display: block;
-          width: 160px;
+          width: 175px;
         }
       }
     }

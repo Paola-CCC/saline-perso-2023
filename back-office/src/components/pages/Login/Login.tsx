@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
-import { useAuthContext } from "../../contexts/AuthContext";
-import InputText from "../../components/atoms/InputText/InputText";
+import { useAuthContext } from "../../../contexts/AuthContext";
+import InputText from "../../atoms/InputText/InputText";
 import jwt_decode from "jwt-decode";
-import Button from "../../components/atoms/Button/Button";
+import Button from "../../atoms/Button/Button";
 
 const Login = () => {
   

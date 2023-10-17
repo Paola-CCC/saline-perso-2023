@@ -1,0 +1,15 @@
+div.container-btn {
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    svg {
+      margin-right: 10px;
+    }
+  }
+  button:last-child {
+    margin-left: 15px;
+  }
+}

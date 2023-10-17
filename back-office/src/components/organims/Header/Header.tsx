@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import './Header.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,10 +11,9 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
 
-  // const {isAuthenticated,handleLogout,userRole ,username} = useContext(AuthContext);
-const [ subnavbarIsOpen, setSubnavbarIsOpen ] = useState(true);
+const [ subnavbarIsOpen, setSubnavbarIsOpen ] = useState(false);
 const { canOpenSidebar} = useEffectsContext();
-const { username, isAuthenticated } = useAuthContext();
+const { username, handleLogout } = useAuthContext();
 
 
   const getFirstLetters = (value :any) => {
@@ -25,6 +24,7 @@ const { username, isAuthenticated } = useAuthContext();
     let lastname = Array.from(username[username.length - 1])[0];
     return firstname + '' + lastname ;
   }
+
   return (
   <div className="Header" data-testid="Header">
     <MenuIcons variant='open' handleClick={canOpenSidebar}/>
@@ -38,24 +38,10 @@ const { username, isAuthenticated } = useAuthContext();
           <span className={`chevron ${ subnavbarIsOpen ? 'open' : ''}`} ></span>
         </Link>
       </button>
-
       <ul className={`sub-menu ${ subnavbarIsOpen ? 'open' : ''}`}  tabIndex={0} >
-                  <li >
-                    <Link to="/espace-personnel"> Espace personnel  </Link> 
-                  </li>
-            
-                <li>
-                  <Link to="/messagerie">Messagerie</Link>
-                </li>
-                
-
-                <li>
-                  <Link to="/" >
-                  Se déconnecter
-                  </Link>
-                </li> 
-
-                
+        <li>
+          <button onClick={handleLogout}>Déconnexion </button>
+        </li> 
       </ul>
     </div>
   </div>

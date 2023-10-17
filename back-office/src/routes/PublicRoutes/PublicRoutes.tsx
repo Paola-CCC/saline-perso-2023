@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { Login, Register } from '../../pages';
+import { Login, Register } from '../../components/pages';
 
 const PublicRoutes = () => {
   return (

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import "./Register.scss";
 import { Link, useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import { useAuthContext } from '../../contexts/AuthContext';
-import InputText from '../../components/atoms/InputText/InputText';
-import Button from '../../components/atoms/Button/Button';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import InputText from '../../atoms/InputText/InputText';
+import Button from '../../atoms/Button/Button';
 // import InputGroupCheckbox from '../../components/atoms/InputGroupCheckbox/InputGroupCheckbox';
 
 const Register = () => {

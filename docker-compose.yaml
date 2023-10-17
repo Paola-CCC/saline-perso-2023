@@ -31,19 +31,19 @@ services:
     #         - acpSymfony
 
 
-    back-office:
-        container_name: saline-back-office
-        build:
-            context: ./back-office 
-            dockerfile: Dockerfile
-        restart: on-failure
-        ports:
-            - "3003:3000"
-        volumes:
-            - ./back-office:/app
-            - /app/node_modules
-        networks:
-            - acpSymfony
+    # back-office:
+    #     container_name: saline-back-office
+    #     build:
+    #         context: ./back-office 
+    #         dockerfile: Dockerfile
+    #     restart: on-failure
+    #     ports:
+    #         - "3001:3000"
+    #     volumes:
+    #         - ./back-office:/app
+    #         - /app/node_modules
+    #     networks:
+    #         - acpSymfony
             
     alpine:
         build:
