@@ -44,7 +44,7 @@ const courseSearching = async (data: Object) => {
 
 const courseShow = async (Id: number | string) => {
   try {
-    const response = await httpClient.get(`${URL}/courses/${Id}`);
+    const response = await httpClient.get(`${URL}/api/courses/${Id}`);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {

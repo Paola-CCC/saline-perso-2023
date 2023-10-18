@@ -13,7 +13,7 @@ const RoutesNavigation = () => {
         <Route path="courses" element={<CoursesList />} />
         <Route path="courses/add" element={<CourseAdd />} />
         
-        <Route path="courses/:id" element={<CourseItem />} >
+        <Route path="courses/:Id" element={<CourseItem />} >
             <Route path="edit" element={<CourseEdit />} />
             <Route path="delete" element={<CourseDelete />} />
         </Route>
