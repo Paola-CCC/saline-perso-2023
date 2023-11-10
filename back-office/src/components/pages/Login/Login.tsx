@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem('jwt', JSON.stringify(response.token));
         setIsAuthenticated(true);
         let jwtDecoded :any = jwt_decode(response.token);
-        setUserId(jwtDecoded.username);        
+        setUserId(jwtDecoded.userId);        
         setUserRole(jwtDecoded.roles);
         navigate("/courses");
 

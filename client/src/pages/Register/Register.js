@@ -47,7 +47,7 @@ const Register = () => {
                 if (response && response.data.token !== '' && response.data.token !== undefined) {
                     let jwtDecoded = jwt_decode(response.data.token);
                     localStorage.setItem('jwt', JSON.stringify(response.data.token));
-                    setUserId(jwtDecoded.username);        
+                    setUserId(jwtDecoded.userId);        
                     setUserRole(jwtDecoded.roles);
                     setIsAuthenticated(true);
                     setSuccessRegister(true);

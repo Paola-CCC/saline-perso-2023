@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-#[Route('/api')]
+
 class CourseController extends AbstractController
 {
 
@@ -44,7 +44,7 @@ class CourseController extends AbstractController
 
     }
 
-    #[Route('/courses/{courseId}', name: 'course_by_id', methods: ['GET'])]
+    #[Route('/api/courses/{courseId}', name: 'course_by_id', methods: ['GET'])]
     public function getCourseById(int $courseId, CourseRepository $courseRepository, SerializerInterface $serializer): JsonResponse
     {
         $course = $courseRepository->find($courseId);

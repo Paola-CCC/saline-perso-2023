@@ -36,19 +36,19 @@ class ProgressionService {
         }
     }
 
-    async getAllProgressionForStudent(data)
-    {
-        try {
-            const response = await this.httpClient.post(`${this.URL}/progression-student`,data);
-            if (response.status >= 200 && response.status <= 299) {
-                return response.data ;
-            } else {
-                console.log('error message ', response)
-            }
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // async getAllProgressionForStudent(data)
+    // {
+    //     try {
+    //         const response = await this.httpClient.post(`${this.URL}/progression-student`,data);
+    //         if (response.status >= 200 && response.status <= 299) {
+    //             return response.data ;
+    //         } else {
+    //             console.log('error message ', response)
+    //         }
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
 
     async searchProgressionStudent(data)

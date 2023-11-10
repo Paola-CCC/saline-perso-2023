@@ -5,7 +5,7 @@ const httpClient = AxiosClient;
 
 const courseAll = async () => {
   try {
-    const response = await httpClient.get(`${URL}/api/courses`);
+    const response = await httpClient.get(`${URL}/courses`);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {

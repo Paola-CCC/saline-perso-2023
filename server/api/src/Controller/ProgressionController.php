@@ -84,7 +84,7 @@ class ProgressionController extends AbstractController
         return new JsonResponse($json, 200, [], true);
     }
 
-    #[Route('/progression-student/{Id}', name: 'app_progression_students', methods: ['POST','GET'])]
+    #[Route('/progression-student/{Id}', name: 'app_progression_students', methods: ['GET'])]
     public function getProgressionForStudents (ManagerRegistry $doctrine , HttpFoundationRequest $request, EntityManagerInterface $entityManager, int $Id): JsonResponse
     {
 

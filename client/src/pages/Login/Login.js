@@ -28,7 +28,7 @@ const Login = () => {
           localStorage.setItem("jwt", JSON.stringify(response.data.token));
           setSuccessLogin(true);
           setUserRole(jwtDecoded.roles);
-          setUserId(parseInt(jwtDecoded.username));
+          setUserId(parseInt(jwtDecoded.userId));
           setIsAuthenticated(true);
           navigate("/espace-personnel");
         } else {

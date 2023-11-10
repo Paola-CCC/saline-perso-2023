@@ -7,55 +7,55 @@ import { courseService } from '../../../services/Courses/CourseService';
 
 interface CourseItemProps {}
 
-interface User {
-  id : number,
-  firstName: string,
-  lastName: string,
-  createdAt: string,
-  biography: string
+interface IUser {
+  id?: number,
+  firstName?: string,
+  lastName?: string,
+  createdAt?: string,
+  biography?: string
 }
 
-interface Composers {
-  id : number,
-  fullName: string
+interface IComposers {
+  id?: number,
+  fullName?: string
 }
 
-interface Categories {
-  id : number,
-  name: string
+interface ICategories {
+  id?: number,
+  name?: string
 }
 
-interface Instrument {
-  id : number,
-  name: string,
-  level: [number]
+interface IInstrument {
+  id? : number,
+  name?: string,
+  level?: number[]
 }
 
-interface Comments {
-  id : number,
-  content: string,
-  createdAt: string | null,
-  updatedAt: string | null,
-  user: User[]
+interface IComments {
+  id? : number,
+  content?: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+  user?: IUser[]
 }
 
-interface courseDataState {
-  id: number,
-  title: string,
-  description: string,
-  price: number,
-  ratingScore: number,
-  linkVideo: string,
-  users?: User[],
-  professor?: User[],
-  composers?: Composers[],
-  categories?: Categories[],
-  instrument: Instrument,
-  comments:  Comments[],
-  preview: string | null,
-  photo?: string | null,
-  createdAt: string | null,
-  updatedAt: string | null,
+interface ICourseDataState {
+  id?: number,
+  title?: string,
+  description?: string,
+  price?: number,
+  ratingScore?: number,
+  linkVideo?: string,
+  users?: IUser[],
+  professor?: IUser[],
+  composers?: IComposers[],
+  categories?: ICategories[],
+  instrument?: IInstrument,
+  comments?:  IComments[],
+  preview?: string,
+  photo?: string,
+  createdAt?: string,
+  updatedAt?: string,
   ratings?:[]
 
 }
@@ -65,7 +65,7 @@ const CourseItem: FC<CourseItemProps> = () => {
 
   const { navigateTo } = useGoNavigate();
   const { Id } = useParams();
-  const [ courseData, setCourseData] = useState<courseDataState | {}>({});
+  const [ courseData, setCourseData] = useState<ICourseDataState>({} as ICourseDataState);
 
 
   const handleUpdate = () => {
@@ -95,7 +95,9 @@ const CourseItem: FC<CourseItemProps> = () => {
     ButtonGroupItem
 
     <div className='container-item-course'>
-      
+      <div>
+        <img src={courseData.photo} alt="" className="card-img" />
+      </div>
     </div>
   </>
 )}; 

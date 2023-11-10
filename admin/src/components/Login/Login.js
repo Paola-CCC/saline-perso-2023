@@ -26,7 +26,7 @@ const Login = () => {
         if (jwtDecoded.roles.includes('ROLE_ADMIN')) {
           localStorage.setItem("token_admin", JSON.stringify(response.data.token));
           setUserRole(jwtDecoded.roles);
-          setUserId(parseInt(jwtDecoded.username));
+          setUserId(parseInt(jwtDecoded.userId));
           setIsAuthenticated(true);
           navigate("/courses");
         } else {

@@ -44,7 +44,7 @@ const AuthContextProvider = ({children}) => {
 
     if( isAuthenticated ){
       let jwtDecoded  = jwt_decode(JSON.parse(token));
-      setUserId(parseInt(jwtDecoded.username));
+      setUserId(parseInt(jwtDecoded.userId));
       setUserRole(jwtDecoded.roles);
       setUsername(usernameStored);
     }

@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import { useAuthContext } from '../../../contexts/AuthContext';
 import InputText from '../../atoms/InputText/InputText';
 import Button from '../../atoms/Button/Button';
+import InputGroupCheckbox from '../../atoms/InputGroupCheckbox/InputGroupCheckbox';
 // import InputGroupCheckbox from '../../components/atoms/InputGroupCheckbox/InputGroupCheckbox';
 
 const Register = () => {
@@ -16,7 +17,10 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [passwordVerification, setPasswordVerification] = useState('');
     const [passwordIsOK, setPasswordIsOK] = useState<false | true | null>(null);
-    const [instrumentList, setInstrumentList] = useState(['Violon']);
+    const [instrumentList, setInstrumentList] = useState([{
+        value: 1,
+        label: 'Violon'
+      }]);
     const [selectedInstruments, setSelectedInstruments] = useState('');
     const [successRegister, setSuccessRegister] = useState<false | true | null>(null);
     const navigate = useNavigate();
@@ -47,7 +51,7 @@ const Register = () => {
             localStorage.setItem('jwt', JSON.stringify(response.token));
             setIsAuthenticated(true);
             let jwtDecoded :any = jwt_decode(response.token);
-            setUserId(jwtDecoded.username);        
+            setUserId(jwtDecoded.userId);        
             setUserRole(jwtDecoded.roles);
             navigate("/homepage");
         } else {
