@@ -1,14 +1,10 @@
 
 .container-list-courses {
-    // background-color: blue;
-    height: 600px;
-    overflow: hidden;
-    overflow-y: scroll;
+  background-color: rgb(252, 252, 252);
 
     table.courses {
-        background-color: rgb(252, 252, 252);
+        // background-color: rgb(252, 252, 252);
         width: 100%;
-        min-width: 1050px;
         padding: 15px;
         border-radius: 10px;
         border-collapse: collapse;

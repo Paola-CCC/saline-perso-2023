@@ -1,22 +1,43 @@
 import RatingStars from '../../atoms/RatingStars/RatingStars';
-import Button from '../../atoms/Button/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useGoNavigate } from '../../../hooks/Navigation';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { courseService } from '../../../services/Courses/CourseService';
 import "./CoursesList.scss";
 import ButtonGroupList from '../../molecules/ButtonGroupList/ButtonGroupList';
+import Pagination from '../../molecules/Pagination/Pagination';
 
 interface CoursesListProps {}
 
 const CoursesList: FC<CoursesListProps> = () => {
 
   const [datas,setDatas] = useState([]);
+  const itemsPerPage = 6;
+  const firstTenElements = datas.length > 0 ? datas.slice(0,itemsPerPage ) : [];
   const { navigateTo } = useGoNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const [totalPages, setTotalPages] = useState(1);
+
 
   const handleAdd = () => {
     navigateTo(`/courses/add`);
+  };
+
+  const truncatedDatas = useCallback((dataElement :any) =>  {
+    if( dataElement && dataElement.length > 0){
+      const currentElemnt = dataElement && dataElement.slice(startIndex, endIndex);
+      setCurrentPage(currentElemnt);
+      const totalElement = Math.ceil(dataElement && dataElement.length / itemsPerPage);
+      setTotalPages(totalElement)
+    }
+  },[endIndex,startIndex]);
+
+  const handlePageChange = (newPage :any) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+    truncatedDatas(newPage);
   };
 
   useEffect(() => {
@@ -25,6 +46,7 @@ const CoursesList: FC<CoursesListProps> = () => {
       const loadDatas = async () => {
         let datas = await courseService.courseAll();
         setDatas(datas);
+        setTotalPages(Math.round(datas.length / itemsPerPage))
       };
       loadDatas();
     }
@@ -33,8 +55,8 @@ const CoursesList: FC<CoursesListProps> = () => {
  return (
   <>
     <ButtonGroupList handleAdd={handleAdd} />
-    <div className='container-list-courses'>
-      <table className='courses card'>
+    <div className='container-list-courses card'>
+      <table className='courses'>
         <thead>
           <tr>
             <th> </th>
@@ -44,12 +66,11 @@ const CoursesList: FC<CoursesListProps> = () => {
             <th>Instruments</th>
             <th>Note</th>
             <th>Date de création</th>
-            <th>Action </th>
           </tr>
         </thead>
         <tbody>
-          {datas.map((value : any, index : any) => (
-            <tr key={index}>
+          {firstTenElements.map((value : any, index : any) => (
+            <tr key={index} tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
               <td className='zone-img'>
               {value.photo && (
                 <div className='img-courses'>
@@ -67,16 +88,11 @@ const CoursesList: FC<CoursesListProps> = () => {
                 </span>          
               </td>
               <td className='txt'>{value.createdAt}</td>
-              <td className='txt last'>
-                <Button kind='secondary' onClick={() => navigateTo(`/courses/${value.id}`)}>
-                  continuer
-                  <FontAwesomeIcon icon={faArrowRight} style={{color: "#6c757d"}} />
-                </Button>          
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
     </div>
   </>
 

@@ -4,6 +4,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useGoNavigate } from '../../../hooks/Navigation';
 import { useEffectsContext } from '../../../contexts/EffectsContext';
 import MenuIcons from '../../atoms/MenuIcons/MenuIcons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChalkboardUser ,faChartLine ,faUserPen , faRectangleList} from "@fortawesome/free-solid-svg-icons";
+import logoImage from "../../../assets/sound-symfo.png";
 
 interface SidebarProps {}
 
@@ -67,11 +70,12 @@ const Sidebar: FC<SidebarProps> = () => {
 
   return (
     <aside className={`sidebar-container ${sidebarIsOpen ? 'open' : 'close'}`} data-testid="Sidebar">
-
       <div className='zone-btn-close'>
           <MenuIcons variant='closed' handleClick={canOpenSidebar} />
       </div>
-
+      <div className='logo-zone'>
+        <img src={logoImage}  alt="img-logo"   />
+      </div>
       <ul className="sidebar-list">
           <li className="sidebar-item">
             <button 
@@ -79,12 +83,15 @@ const Sidebar: FC<SidebarProps> = () => {
               id='homepage-datas' 
               onClick={(e)=> addClassActive('/homepage')}
             > 
+            <FontAwesomeIcon icon={faChartLine} />
               Tableau de bord
             </button>
           </li>
 
           <li className="sidebar-item">
-            <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >Aprrentissage</button>
+            <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >
+              <FontAwesomeIcon icon={faChalkboardUser}  /> Aprrentissage
+            </button>
             <ul className="panel">
               <li className="sidebar-item-nested">
                   <Link className="link-sidebar" to="/courses">Cours</Link>
@@ -103,7 +110,9 @@ const Sidebar: FC<SidebarProps> = () => {
           </li>
 
           <li className="sidebar-item">
-            <button className="accordion" id='user-settings' onClick={(e)=> addClassActive('/professors')}   >Gestion des Utilisateurs</button>
+            <button className="accordion" id='user-settings' onClick={(e)=> addClassActive('/professors')}   >
+              <FontAwesomeIcon icon={faUserPen}  /> Gestion des utilisateurs
+            </button>
             <ul className="panel">
               <li className="sidebar-item-nested">
                   <Link className="link-sidebar" to="/professors">Professeurs</Link>
@@ -123,7 +132,7 @@ const Sidebar: FC<SidebarProps> = () => {
             id='forum-settings'  
             onClick={(e)=> addClassActive('/forum')} 
           > 
-            Forum
+            <FontAwesomeIcon icon={faRectangleList} /> Forum
             </button>
           </li>
       </ul>

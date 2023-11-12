@@ -1,1 +1,33 @@
-.Pagination {}
+div.pagination {
+    // background-color: cyan;
+    width: 100%;
+    padding: 10px 0;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    border: 1px solid rgba(237, 237, 237, 0.929);
+    background-color: rgb(249, 249, 249);
+
+    div {
+        margin: 0 5px;
+        width: 130px;
+        display: inline-block;
+        text-align: center;
+        margin: 0 5px;
+
+    }
+
+    button.btn-pagination {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid rgba(214, 213, 213, 0.929);
+        color: rgba(196, 195, 195, 0.929);
+
+
+        &:last-of-type {
+            margin-right: 15px;
+        }
+    }
+}
