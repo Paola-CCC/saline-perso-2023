@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import './Pagination.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight ,faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import Button from '../../atoms/Button/Button';
 
 interface PaginationProps {
   totalPages?: any,
@@ -20,7 +19,7 @@ const  Pagination: FC<PaginationProps> = ({ totalPages, currentPage, onPageChang
 
       { currentPage && totalPages && (
         <div> 
-           page {currentPage > 9 ? currentPage  : `0${currentPage}` }      sur {totalPages} 
+           page {currentPage > 9 ? currentPage  : `0${currentPage}`} sur {totalPages} 
         </div>
        )
       }

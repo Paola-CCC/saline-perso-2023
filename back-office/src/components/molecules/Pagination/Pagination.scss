@@ -24,6 +24,11 @@ div.pagination {
         border-radius: 5px;
         border: 1px solid rgba(214, 213, 213, 0.929);
         color: rgba(196, 195, 195, 0.929);
+        &:disabled {
+            background-color: rgb(224, 224, 224);
+            cursor:not-allowed;
+            color: white;
+        }
 
 
         &:last-of-type {

@@ -11,33 +11,24 @@ interface CoursesListProps {}
 const CoursesList: FC<CoursesListProps> = () => {
 
   const [datas,setDatas] = useState([]);
-  const itemsPerPage = 6;
-  const firstTenElements = datas.length > 0 ? datas.slice(0,itemsPerPage ) : [];
+  const itemsPerPage = 7;
   const { navigateTo } = useGoNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const [totalPages, setTotalPages] = useState(1);
+  const currentData = datas.length > 0 ? datas.slice(startIndex, endIndex ) : [];
+  const totalPages = Math.ceil(datas.length / itemsPerPage);
 
 
   const handleAdd = () => {
     navigateTo(`/courses/add`);
   };
 
-  const truncatedDatas = useCallback((dataElement :any) =>  {
-    if( dataElement && dataElement.length > 0){
-      const currentElemnt = dataElement && dataElement.slice(startIndex, endIndex);
-      setCurrentPage(currentElemnt);
-      const totalElement = Math.ceil(dataElement && dataElement.length / itemsPerPage);
-      setTotalPages(totalElement)
-    }
-  },[endIndex,startIndex]);
 
   const handlePageChange = (newPage :any) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      setCurrentPage(newPage);       
     }
-    truncatedDatas(newPage);
   };
 
   useEffect(() => {
@@ -46,7 +37,6 @@ const CoursesList: FC<CoursesListProps> = () => {
       const loadDatas = async () => {
         let datas = await courseService.courseAll();
         setDatas(datas);
-        setTotalPages(Math.round(datas.length / itemsPerPage))
       };
       loadDatas();
     }
@@ -60,6 +50,7 @@ const CoursesList: FC<CoursesListProps> = () => {
         <thead>
           <tr>
             <th> </th>
+            <th>Photo</th>
             <th>Id</th>
             <th>Nom du cours</th>
             <th>Professeur</th>
@@ -69,25 +60,28 @@ const CoursesList: FC<CoursesListProps> = () => {
           </tr>
         </thead>
         <tbody>
-          {firstTenElements.map((value : any, index : any) => (
-            <tr key={index} tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
-              <td className='zone-img'>
-              {value.photo && (
-                <div className='img-courses'>
-                    <img src={value.photo} alt={'86'} className="card-img" />
-                </div>
-              )}
-              </td>
-              <td className='txt'>{value.id}</td>
-              <td className='txt'>{value.title}</td>
-              <td className='txt'>{`${value.professor.firstName} ${value.professor.lastName}`}</td>
-              <td className='txt'>{`${value.instrument.name}`}</td>
+          {currentData.map((value : any, index : any) => (
+            <tr key={index} >
               <td className='txt'>
+                <input type='checkbox'></input>
+              </td>
+              <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
+                {value.photo && (
+                  <div className='img-courses'>
+                      <img src={value.photo} alt={'86'} className="card-img" />
+                  </div>
+                )}
+              </td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >{value.id}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >{value.title}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >{`${value.professor.firstName} ${value.professor.lastName}`}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >{`${value.instrument.name}`}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
                 <span className="stars-area">
                   <RatingStars ratingScore={value.ratingScore} />
                 </span>          
               </td>
-              <td className='txt'>{value.createdAt}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >{value.createdAt}</td>
             </tr>
           ))}
         </tbody>
