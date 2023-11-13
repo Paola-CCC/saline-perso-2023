@@ -59,6 +59,9 @@
       
           td.txt {
             padding-left: 13px;
+            &.name-course {
+              width: 200px;
+            }
       
             &.last button.secondary{
               // border: none;

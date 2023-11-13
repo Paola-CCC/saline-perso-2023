@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-#[Route('/api/category')]
+#[Route('/category')]
 class CategoryController extends AbstractController
 {
     private $entityManager;

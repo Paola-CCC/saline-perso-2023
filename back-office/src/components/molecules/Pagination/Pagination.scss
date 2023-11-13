@@ -23,11 +23,12 @@ div.pagination {
         height: 30px;
         border-radius: 5px;
         border: 1px solid rgba(214, 213, 213, 0.929);
-        color: rgba(196, 195, 195, 0.929);
+        color: black;
+        background-color: white;
         &:disabled {
-            background-color: rgb(224, 224, 224);
+            background-color: rgb(231, 231, 231);
             cursor:not-allowed;
-            color: white;
+            color: rgb(163, 163, 163);
         }
 
 

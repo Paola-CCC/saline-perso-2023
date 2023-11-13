@@ -6,9 +6,10 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface ButtonGroupListProps {
   handleAdd?: () => void;
+  handleDelete?: () => void;
 }
 
-const ButtonGroupList: FC<ButtonGroupListProps> = ({ handleAdd,}) => {
+const ButtonGroupList: FC<ButtonGroupListProps> = ({ handleAdd, handleDelete}) => {
 
   return (
     <div className='container-btn'>
@@ -16,10 +17,10 @@ const ButtonGroupList: FC<ButtonGroupListProps> = ({ handleAdd,}) => {
           <FontAwesomeIcon icon={faPlus} style={{color: "#fffffc"}} />
           Ajouter
         </Button>
-        {/* <Button kind='primary' onClick={handleDelete}>
+        <Button kind='primary' onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} style={{color: "#fffffc"}} />
           Supprimer
-        </Button> */}
+        </Button>
     </div>
   );
 };

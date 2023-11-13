@@ -21,7 +21,7 @@ use Symfony\Component\Mime\Email;
 
 
 
-#[Route('/api')]
+#[Route('')]
 class UserController extends AbstractController
 {
     private $doctrine;
@@ -44,7 +44,7 @@ class UserController extends AbstractController
         return new JsonResponse($jsonUsersList, Response::HTTP_OK, ['accept' => 'json'], true);
     }
 
-    #[Route('/professors', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/professors', name: 'app_prof_index', methods: ['GET'])]
     public function getAllProfessors(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();

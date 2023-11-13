@@ -24,7 +24,7 @@ class ComposerController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/', name: 'app_composer_index', methods: ['GET'])]
+    #[Route('/all', name: 'app_composer_index', methods: ['GET'])]
     public function index(ComposerRepository $composerRepository, SerializerInterface $serializer): JsonResponse
     {
         $composers = $composerRepository->findAll();

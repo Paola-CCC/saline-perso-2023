@@ -1,24 +1,29 @@
+import { AxiosResponse } from "axios";
 import AxiosClient from "../AxiosClient";
+import { ICourses } from "../../models/Interfaces/courses";
 
 const URL = 'http://localhost:1234';
 const httpClient = AxiosClient;
 
 const courseAll = async () => {
+  
   try {
-    const response = await httpClient.get(`${URL}/courses`);
+    const response : AxiosResponse<ICourses[]> = await httpClient.get(`${URL}/courses`);
     if (response.status >= 200 && response.status <= 299) {
-      return response.data;
+      const courses: ICourses[] = response.data;
+      return courses;
     } else {
-      console.log("error message ", response);
+      throw new Error(`Erreur de réponse de l'API, code : ${response?.status}`);
     }
   } catch (error) {
-    console.error(error);
+    console.error('Erreur lors de la récupération des cours :', error);
+    throw error; 
   }
 };
 
 const courseAdd = async (data: Object) => {
   try {
-    const response = await httpClient.post(`${URL}/api/new-course`, data);
+    const response = await httpClient.post(`${URL}/new-course`, data);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {
