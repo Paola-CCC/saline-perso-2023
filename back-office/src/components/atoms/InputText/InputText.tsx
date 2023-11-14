@@ -7,26 +7,22 @@ import classNames from "classnames";
 
 interface InputTextProps {
   label?: string,
-  value?: string,
+  value?: string | number,
   placeholder?: string,
   isRequired?: boolean,
   name?: string,
   errorText?: string,
-  type?: 'search' | 'text' | 'password'
-  onChange: (updatedOptions: any) => void;
+  type?: 'search' | 'text' | 'password' | 'textarea'
+  onChange?: (updatedOptions: any) => void;
 }
 
-const InputText: React.FC<InputTextProps> = ({ label, placeholder, value, type, isRequired, name, errorText, onChange }) => {
+const InputText: React.FC<InputTextProps> = ({ label, placeholder, value, type = 'text', isRequired, name, errorText, onChange }) => {
 
-  // const [selectedOption, setSelectedOption] = useState<string>('');
 
-  // useEffect(() => {
-  //   getValues(selectedOption);
-  // })
-
-  const btnClassInput = classNames("grp-input-search", {
+  const btnClassInput = classNames("grp-input", {
     inputText: type === "text",
     inputSearch: type === "search",
+    textarea: type === "textarea",
   });
 
   return (
@@ -42,16 +38,31 @@ const InputText: React.FC<InputTextProps> = ({ label, placeholder, value, type, 
             <FontAwesomeIcon icon={faSearch} flip="horizontal" />
           </button>
         }
-        <input
-          type={ type !== 'text' ? type : 'text' }
-          className="input-search-input"
-          value={value}
-          placeholder={placeholder}
-          name={name}
-          required={isRequired}
-          onChange={onChange}
-          tabIndex={0}
-        />
+
+        { type === "textarea"  ? 
+          (
+              <textarea id="story"  
+                value={value}
+                placeholder={placeholder}
+                name={name}
+                required={isRequired}
+                onChange={onChange}
+                rows={4} 
+                tabIndex={0}>
+              </textarea>
+          ) : (
+              <input
+              type={type}
+              className="input-search-input"
+              value={value}
+              placeholder={placeholder}
+              name={name}
+              required={isRequired}
+              onChange={onChange}
+              tabIndex={0}
+            />
+          )
+        }
 
         { errorText && errorText !== "" && (
           <span> { errorText } </span>

@@ -1,4 +1,5 @@
-import { Categories, Composers, Instrument, Professor, Quizz, Rating } from "../types/courses.types";
+import { Categories, Composers, Instrument, Quizz, Rating } from "../types/courses.types";
+import { User } from "../types/user.types";
 
 export interface ICourses {
     id: number;
@@ -8,7 +9,7 @@ export interface ICourses {
     ratingScore: number;
     linkVideo: string;
     users?: any[]; 
-    professor?: Professor;
+    professor?: User | null;
     composers: Composers[];
     categories?: Categories[];
     instrument?: Instrument;

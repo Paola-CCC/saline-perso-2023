@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import AxiosClient from "../AxiosClient";
-import { IProfessors } from "../../models/Interfaces/professors";
+import { IUsers } from "../../models/Interfaces/users";
 
 const URL = 'http://localhost:1234';
 const httpClient = AxiosClient;
@@ -33,9 +33,9 @@ const showById = async (Id: number | string) => {
 
 const showProfessorsList = async () => {
     try {
-        const response: AxiosResponse<IProfessors[]> = await httpClient.get(`${URL}/professors`);
+        const response: AxiosResponse<IUsers[]> = await httpClient.get(`${URL}/professors`);
         if (response.status >= 200 && response.status <= 299) {
-            const responses : IProfessors[] = response.data ;
+            const responses : IUsers[] = response.data ;
             return responses;
         } else {
             console.log("error message ", response);

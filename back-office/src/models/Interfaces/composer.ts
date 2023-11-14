@@ -4,8 +4,8 @@ import { ICourses } from "./courses";
 type GuestUser = Pick<ICourses, 'id' | 'title'>;
 
 export interface IComposers extends Composers {
-    biography: string;
-    courses: readonly GuestUser[];
+    biography?: string;
+    courses?: readonly GuestUser[];
 }
   
 

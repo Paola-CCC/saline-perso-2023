@@ -1,149 +1,277 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef} from 'react';
 import './CourseAdd.scss';
-import { usersService } from '../../../services/Users/UsersService';
 import { courseService } from '../../../services/Courses/CourseService';
+import InputText from '../../atoms/InputText/InputText';
+import InputSelect from '../../atoms/InputSelect/InputSelect';
+import { User } from '../../../models/types/user.types';
+import { Categories, Composers, Instrument } from '../../../models/types/courses.types';
+import Button from '../../atoms/Button/Button';
+import { useGoNavigate } from '../../../hooks/Navigation';
 
 const CourseAdd = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [linkVideo, setLinkVideo] = useState('');
-  const [preview, setPreview] = useState('');
-  const [photo, setPhoto] = useState('');
-  const [instrumentId, setInstrumentId] = useState('');
-  const [availableInstruments, setAvailableInstruments] = useState([]);
-  const [professorId, setProfessorId] = useState('');
-  const [availableProfessors, setAvailableProfessors] = useState([]);
-  const [composerId, setComposerId] = useState('');
-  const [availableComposers, setAvailableComposers] = useState([]);
-  const [categoryNames, setCategoryNames] = useState('');
-  const [availableCategories, setAvailableCategories] = useState([]);
-  const URL = 'http://localhost:1234';
 
-  
+  const [courseCreationIsSuccesful, setCourseCreationIsSuccesful] = useState< boolean | null > (null);
+  const { navigateTo } = useGoNavigate();
+  const [optionsProfessors, setOptionsProfessors] = useState([{ value: "", label: "Choisir un professeur" }]);
+  const [optionsCategories, setOptionsCategories] = useState([{ value: "", label: "Choisir une catégorie" }]);
+  const [optionsCompositors, setOptionsCompositors] = useState([{ value: "", label: "Choisir un compositeur" }]);
+  const [optionsInstruments, setPptionsInstruments] = useState([{ value: "", label: "Choisir un instrument" }]);
+  const initialStateNewCourse = {
+    title: '',
+    description: '',
+    price: undefined,
+    linkVideo: '',
+    preview: '',
+    photo: '',
+    instrumentId: undefined,
+    professorId: undefined,
+    composerId: undefined,
+    categoryId: undefined
+};
+const [newCourse, setNewCourse] = useState(initialStateNewCourse);
+
+
+
+
+  const dataFetchedRef = useRef(false);
+
+  const handleChange = (event :any) => {
+    const { name, value } = event.target;
+    setNewCourse({ ...newCourse, [name]: value });
+  };
+
+  const clearNewCourse = () => {
+    setCourseCreationIsSuccesful(null);
+    setNewCourse(initialStateNewCourse);
+  };
+
+  const handleAdd = () => {
+    clearNewCourse();
+    navigateTo(`/courses`);
+  };
 
 
   useEffect(() => {
-    axios.get(URL+'/instruments')
-      .then(response => {
-        setAvailableInstruments(response.data);
-      })
-      .catch(error => {
-        console.error('Error loading instruments:', error);
-      });
 
-    axios.get(URL+'/composer/all')
-      .then(response => {
-        setAvailableComposers(response.data);
-      })
-      .catch(error => {
-        console.error('Error loading composers:', error);
-      });
-
-      axios.get(URL+'/professors')
-      .then(response => {
-        setAvailableProfessors(response.data);
-      })
-      .catch(error => {
-        console.error('Error loading professors', error);
-      });
-
-      axios.get(URL+'/category/all')
-        .then(response => {
-          setAvailableCategories(response.data);
-        })
-        .catch(error => {
-          console.error('Error loading categories', error);
+      const getProfessorForOption = (response : User[]) => {
+        const professors = response.map((e :any) => {
+        return {
+            value: e.id,
+            label:  e.firstName + ' ' + e.lastName.toUpperCase()
+          }
         });
-  }, []);
+        setOptionsProfessors([...optionsProfessors, ...professors]);
+      };
+
+      const getCategoryForOption = (response : Categories[]) => {
+        const categories = response.map((e :any) => {
+        return {
+            value: e.id,
+            label:  e.name
+          }
+        });
+        setOptionsCategories([...optionsCategories, ...categories]);
+      };
+
+      const getCompositorsForOption = (response : Composers[]) => {
+        const compositors = response.map((e :any) => {
+        return {
+            value: e.id,
+            label:  e.fullName
+          }
+        });
+        setOptionsCompositors([...optionsCompositors, ...compositors]);
+      };
+
+      const getInstrumentsForOption = (response : Instrument[]) => {
+        const instruments = response.map((e :any) => {
+        return {
+            value: e.id,
+            label:  e.name
+          }
+        });
+        setPptionsInstruments([...optionsInstruments, ...instruments]);
+      };
+      const getCourseDatasForCreation = async() => {
+        let datas = await courseService.courseDatasCreation();
+        getProfessorForOption(datas.professors);
+        getCategoryForOption(datas.categories);
+        getCompositorsForOption(datas.composers);
+        getInstrumentsForOption(datas.instruments);
+      }
+
+      if ( !dataFetchedRef.current){
+        getCourseDatasForCreation();
+        dataFetchedRef.current = true;
+      }
+
+  },[optionsCategories, optionsCompositors,optionsInstruments,optionsProfessors]);
 
   const handleSubmit = async () => {
 
     try {
-      const newCourse = {
-        title,
-        description,
-        price,
-        linkVideo,
-        preview,
-        photo,
-        instrument: { id: instrumentId },
-        professor:{ id: professorId },
-        composer: [{ id: composerId }],
-        category: [{ name: categoryNames}],
-      };
-      console.log(newCourse);
-      let datas = await courseService.courseAdd(newCourse);
 
-      console.log( "RESP " , datas);
+      let response = await courseService.courseAdd(newCourse);
+      if (response.status >= 200 ){
+        setCourseCreationIsSuccesful(true);
+      }
+    
     } catch (error) {
       console.error('Error creating course', error);
     }
   };
 
+
+  if( courseCreationIsSuccesful ){
+    return (
+      <div className='container-sucess-add'>
+        <div className='elements-zone'>
+          <div className='txt-area'>
+            <h4>Vous venez de créer un nouveau cours avec succès </h4>
+          </div>
+          <div>
+
+          </div>
+          <div className='btn-zone'>
+            <Button kind='secondary' onClick={handleAdd}>
+              Retour
+            </Button> 
+            <Button kind='primary' onClick={clearNewCourse}>
+              Ajouter un nouveau cours
+            </Button> 
+          </div>
+        </div>
+      </div>
+
+    )
+  }
+
   return (
-    <div className='add-course'>
-      <div className='cont-title-page'>
-        <h1 className='title-page-add-course'>Ajouter un cours</h1>
-      </div>
-      <div className='cont-add-course'>
-        <label>Titre:</label>
-      <input className='input-add-course'  type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+    <div className='container-global-add'>
+      <form className="add-course form">
+        <div className='cont-title-page'>
+          <h1 className='title-page-add-course'>Ajouter un cours</h1>
+        </div>
+        <div className="mb-3">
+              <InputText 
+                  label= {"Titre"}
+                  name='title' 
+                  onChange={handleChange}
+                  value={newCourse.title}
+                  isRequired= {true}
+                  errorText={""}
+              />
+        </div>
+        <div className="mb-3">
+              <InputText 
+                  label= {"Description"}
+                  type="textarea"     
+                  name='description' 
+                  onChange={handleChange}
+                  value={newCourse.description}
+                  isRequired= {true}
+                  errorText={""}
+              />
+        </div>
 
-      <label>Description: </label>
-      <input className='input-add-course' type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
+        <div className="grid-container mb-3">
+            <div className="grid-item mb-3">
+                  <InputText 
+                      label= {"Prix en €"}   
+                      name='price' 
+                      onChange={handleChange}
+                      value={newCourse.price}
+                      isRequired= {true}
+                      errorText={""}
+                  />
+            </div>
+          
+            <div className="grid-item mb-3">
+                  <InputText 
+                      label= {"Id de la vidéo"}   
+                      name='linkVideo' 
+                      onChange={handleChange}
+                      value={newCourse.linkVideo}
+                      isRequired= {true}
+                      errorText={""}
+                  />
+            </div>
+        </div>
 
-      <label>Prix:</label>
-      <input className='input-add-course'  type='text' value={price} onChange={(e) => setPrice(e.target.value)}/>
 
-      <label>Id de la vidéo Youtube:</label>
-      <input className='input-add-course'  type='text' value={linkVideo} onChange={(e) => setLinkVideo(e.target.value)} />
+        <div className="mb-3">
+              <InputText 
+                  label= {"Preview"}   
+                  name='preview' 
+                  onChange={handleChange}
+                  value={newCourse.preview}
+                  isRequired= {true}
+                  errorText={""}
+              />
+        </div>
 
-      <label>Preview:</label>
-      <input className='input-add-course'  type='text' value={preview} onChange={(e) => setPreview(e.target.value)} />
+        <div className="mb-3">
+              <InputText 
+                  label= {"Photo"}   
+                  name='photo' 
+                  onChange={handleChange}
+                  value={newCourse.photo}
+                  isRequired= {true}
+                  errorText={""}
+              />
+        </div>
 
-      <label>Lien de la photo:</label>
-      <input className='input-add-course'  type='text' value={photo} onChange={(e) => setPhoto(e.target.value)}/>
+        <div className="grid-container mb-3 select-input-grp">
+              <div className="grid-item">
+                <InputSelect 
+                  name="instrumentId"
+                  label="Instruments"
+                  options={optionsInstruments}
+                  value={newCourse.instrumentId} 
+                  onChange={handleChange}
+                />
+              </div>
+              
+              <div className="grid-item">
+                <InputSelect 
+                  name="professorId"
+                  label="Professeurs"
+                  options={optionsProfessors}
+                  value={newCourse.professorId} 
+                  onChange={handleChange}
+                />
+              </div>
 
-      <label>Instrument:</label>
-      <select className='select-add-course' value={instrumentId} onChange={(e) => setInstrumentId(e.target.value)}>
-        <option value=''>Sélectionner un instrument</option>
-        {availableInstruments.map((instrument:any) => (
-          <option key={instrument.id} value={instrument.id}>{instrument.name}</option>
-        ))}
-      </select>
+              <div className="grid-item">
 
-      <label>Professeur:</label>
-      <select className='select-add-course' value={professorId} onChange={(e) => setProfessorId(e.target.value)}>
-        <option value=''>Sélectionner un professeur</option>
-        {availableProfessors.map((professor : any) => (
-          <option key={professor.id} value={professor.id}>{professor.firstName} {professor.lastName}</option>
-        ))}
-      </select>
+                <InputSelect 
+                  name="composerId"
+                  label= "Compositeur"   
+                  options={optionsCompositors}
+                  value={newCourse.composerId} 
+                  onChange={handleChange}
+                />
+                
+              </div>
 
-      <label>Compositeurs:</label> 
-      <select className='select-add-course' value={composerId} onChange={(e) => setComposerId(e.target.value)}>
-        <option value=''>Sélectionner un compositeur</option>
-        {availableComposers.map((composer : any) => (
-          <option key={composer.id} value={composer.id}>{composer.fullName}</option>
-        ))}
-      </select>
-
-      <label><strong>Catégories:</strong></label>
-      <select className='select-add-course' value={categoryNames} onChange={(e) => setCategoryNames(e.target.value)}>
-      <option value=''>Sélectionner une catégorie</option>
-        {availableCategories.map((category :any)=> (
-          <option key={category.id} value={category.name}>{category.name}</option>
-        ))}
-      </select>
-      </div>
-      
-      <div className='cont-add-course-check'>
-        <button className='btn-add-coure-check' onClick={handleSubmit}>Ajouter le cours</button>
-      </div>
-      
+              <div className="grid-item">
+                <InputSelect 
+                  name="categoryId"
+                  label="Catégories"
+                  options={optionsCategories}
+                  value={newCourse.categoryId} 
+                  onChange={handleChange}
+                />
+              </div>
+        </div>
+        
+        <div className='cont-add-course-check'>
+          <Button kind='primary' onClick={handleSubmit}>Ajouter le cours</Button>
+        </div>
+        
+      </form>
     </div>
+
   );
 };
 

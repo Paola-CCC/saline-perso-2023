@@ -9,22 +9,23 @@ interface Option {
 
 interface InputSelectProps {
   label?: string;
-  options: Option[]; 
-  getValues: (updatedOptions: any) => void;
+  name?:string ;
+  value?: string | number
+  options?: any; 
+  onChange?: (updatedOptions: any) => void;
 }
 
 
-const InputSelectMM : React.FC <InputSelectProps> = ({ label, options, getValues }) => {
+const InputSelect : React.FC <InputSelectProps> = ({ label, name,  options, value, onChange }) => {
 
-  const [selectedOptions, setSelectedOptions] = useState<number | string | null>(null);
 
   return (
     <div className="input-select-container">
       {label && (
         <label>{label}</label>
       )}
-      <select value={selectedOptions === null ? '' : selectedOptions} onChange={(e) => setSelectedOptions(e.target.value)}>
-        {options.map((option , index) => (
+      <select value={value} name={name} onChange={onChange}>
+        {options.map((option : any, index : any) => (
           <option key={index} value={option.value} >
             {option.label}
           </option>
@@ -34,4 +35,4 @@ const InputSelectMM : React.FC <InputSelectProps> = ({ label, options, getValues
   );
 };
 
-export default InputSelectMM;
+export default InputSelect;

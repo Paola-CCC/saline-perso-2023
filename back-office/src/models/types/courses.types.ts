@@ -1,3 +1,6 @@
+import { ICourses } from "../Interfaces/courses";
+import { User } from "./user.types";
+
 export type Composers = {
     id: number;
     fullName: string;
@@ -8,21 +11,19 @@ export type Categories = {
     name: string;
 }
 
-export type Professor = {
-    id: number;
-    firstName: string;
-    lastName: string;
-    createdAt: string;
-    biography: string | null;
-}
-
 export type Instrument = {
     id: number;
     name: string;
-    level: number[];
+    level?: number[];
 }
 
-export type Rating = {}
+export type Rating = {
+    id: number;
+    value?: number | null;
+    user?: User
+    course?: ICourses[];
+
+}
 
 export type Quizz = {
     id: number;

@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import AxiosClient from "../AxiosClient";
 import { ICourses } from "../../models/Interfaces/courses";
+import { ICoursesDatasCreation } from "../../models/Interfaces/coursesDatas";
 
 const URL = 'http://localhost:1234';
 const httpClient = AxiosClient;
@@ -21,16 +22,36 @@ const courseAll = async () => {
   }
 };
 
+/** recupère données nécessaires pour création d'un cours  */
+const courseDatasCreation = async () => {
+  
+  try {
+    const response : AxiosResponse<ICoursesDatasCreation> = await httpClient.get(`${URL}/courses/datas-creation`);
+    if (response.status >= 200 && response.status <= 299) {
+      const courses: ICoursesDatasCreation = response.data;
+      return courses;
+    } else {
+      throw new Error(`Erreur de réponse de l'API, code : ${response?.status}`);
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des cours :', error);
+    throw error; 
+  }
+};
+
 const courseAdd = async (data: Object) => {
   try {
     const response = await httpClient.post(`${URL}/new-course`, data);
     if (response.status >= 200 && response.status <= 299) {
-      return response.data;
+      return response;
     } else {
       console.log("error message ", response);
+      throw new Error(`Erreur de réponse de l'API, code : ${response?.status}`);
+
     }
   } catch (error) {
     console.error(error);
+    throw error; 
   }
 };
 
@@ -106,10 +127,11 @@ const courseDelete = async (Id: number | string) => {
 
 export const courseService = {
   courseAll,
+  courseShow,
+  courseDatasCreation,
   courseDelete,
   courseEdit,
   courseSearching,
-  courseShow,
   courseGetFiles,
   courseAdd
 };

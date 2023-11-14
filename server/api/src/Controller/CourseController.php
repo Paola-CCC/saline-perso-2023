@@ -189,10 +189,56 @@ class CourseController extends AbstractController
 
     }
 
+
+    #[Route('/courses/datas-creation', name: 'course_datas-creation', methods: ['GET'])]
+    public function getAlllCoursesDatas( SerializerInterface $serializer) {
+
+        $instruments = $this->entityManager->getRepository(Instrument::class)->findAll();
+        $composers = $this->entityManager->getRepository(Composer::class)->findAll();
+        $category = $this->entityManager->getRepository(Category::class)->findAll();
+        $usersList = $this->entityManager->getRepository(User::class)->findAll();
+        $professorList = array();
+        $datas = [] ;
+
+        foreach ($usersList as $user) {
+            if($user->getRoles()[0] == 'ROLE_PROFESSOR'){
+                array_push($professorList, $user);
+            }
+        }
+        $datas = [
+            'professors' => $professorList,
+            'categories' => $category,
+            'composers' => $composers,
+            'instruments' => $instruments
+        ];
+
+        $jsonUsersList = $serializer->serialize($datas, 'json', ['groups' => ['user' ,'course','course_users', 'course_professor', 'course_composers', 'course_instruments', 'instrument', 'course_category', 'category', 'quizz_course', 'quizz']]);
+        return new JsonResponse($jsonUsersList, Response::HTTP_OK, ['accept' => 'json'], true);
+
+    }
+
     #[Route('/new-course', name: 'new_course', methods: ['POST'])]
     public function newCourse(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
+        $instrument = $this->entityManager->getRepository(Instrument::class)->find($data['instrumentId']);
+        $professor = $this->entityManager->getRepository(User::class)->find($data['professorId']);
+        $category = $this->entityManager->getRepository(Category::class)->find($data['categoryId']);
+        $composer = $this->entityManager->getRepository(Composer::class)->find($data['composerId']);
+
+        // if (!$instrument) {
+        //     return new Response("Instrument not found", 404);
+        // }
+        // if (!$professor) {
+        //     return new Response("Professor not found", 404);
+        // }
+        // if (!$category) {
+        //     return new Response("Category not found", 404);
+        // }
+
+        // if (!$composer) {
+        //     return new Response("Composer not found", 404);
+        // }  
 
         $course = new Course();
         $course->setCreatedAt(new \DateTimeImmutable());
@@ -202,37 +248,12 @@ class CourseController extends AbstractController
         $course->setLinkVideo($data['linkVideo']);
         $course->setPreview($data['preview']);
         $course->setPhoto($data['photo']);
-        $instrumentId = $data['instrument']['id'];
-        $instrument = $this->entityManager->getRepository(Instrument::class)->find($instrumentId);
-        if (!$instrument) {
-            return new Response("Instrument not found", 404);
-        }
         $course->setInstrument($instrument);
-        $professorId = $data['professor']['id'];
-        $professor = $this->entityManager->getRepository(User::class)->find($professorId);
-        if (!$professor) {
-            return new Response("Professor not found", 404);
-        }
         $course->setProfessor($professor);
-        foreach($data['composer'] as $value){
-            $composerId = $value['id'];
-            $composer = $this->entityManager->getRepository(Composer::class)->find($composerId);
-            if (!$composer) {
-                return new Response("Composer not found", 404);
-            }
-            $course->addComposer($composer);
-        }
-        foreach($data['category'] as $value){
-            $categoryName = $value['name'];
-            $category = $this->entityManager->getRepository(Category::class)->findOneBy(['name' => $categoryName]);
-            if (!$category) {
-                return new Response("Category not found", 404);
-            }
-            $course->addCategory($category);
-        }
+        $course->addComposer($composer);
+        $course->addCategory($category);
         $this->entityManager->persist($course);
         $this->entityManager->flush();
-
         return new Response('Course created successfully', Response::HTTP_CREATED);
 
     }
