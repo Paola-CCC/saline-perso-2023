@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import './RatingStars.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,7 @@ const RatingStars: FC<RatingStarsProps> = ({ratingScore}) => {
    const tabChoice = [1, 2, 3, 4, 5];
 
    return (
-     <div>
+     <>
        {
         tabChoice.map((value) => (
           <span key={value} >
@@ -24,7 +24,7 @@ const RatingStars: FC<RatingStarsProps> = ({ratingScore}) => {
           </span>
         ))
        }
-     </div>
+     </>
    );
  };
  
