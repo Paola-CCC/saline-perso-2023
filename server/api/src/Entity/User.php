@@ -35,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['user','messages','forum_answer','forum',])]
+    #[Groups(['user','messages','forum_answer','forum','course_professor'])]
     private ?string $photo = null;
 
     #[ORM\Column(length: 255)]

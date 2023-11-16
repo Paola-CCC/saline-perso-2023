@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Entity\Progression;
 use App\Entity\User;
-use App\Repository\CourseRepository;
 use App\Repository\ProgressionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;

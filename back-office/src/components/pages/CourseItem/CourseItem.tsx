@@ -13,6 +13,7 @@ interface IUser {
   id?: number,
   firstName?: string,
   lastName?: string,
+  photo?: string,
   createdAt?: string,
   biography?: string
 }
@@ -153,7 +154,7 @@ const CourseItem: FC<CourseItemProps> = () => {
           <div className='zone-text title'>
               <h3> {courseData?.title} </h3>
               <div>
-                <p> {courseData?.createdAt}</p>
+                <small> créé le {courseData?.createdAt}</small>
               </div>
           </div>
 
@@ -161,17 +162,17 @@ const CourseItem: FC<CourseItemProps> = () => {
                 <div className="photos-area">
                   <img
                     className="fit-picture"
-                    src={"https://media.vanityfair.fr/photos/639f79ac2538fa0aa80eee71/16:9/w_2240,c_limit/1174331336"}
+                    src={(courseData?.professor?.photo ? courseData?.professor?.photo :"https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg" )}
                     alt=""
                   />
                 </div>
 
                 <div className="infos-course-area">
-                  <h3> {(courseData?.professor?.firstName && courseData?.professor?.lastName  ) ? (courseData?.professor?.firstName + ' '+ courseData?.professor?.lastName) : '' } </h3>
+                  <h3> {(courseData?.professor?.firstName && courseData?.professor?.lastName) ? (courseData?.professor?.firstName + ' '+ courseData?.professor?.lastName) : '' } </h3>
                   <div className="text-area">
                     <p> 
                       <span className="stars-area">
-                          avis:  <RatingStars ratingScore={courseData?.ratingScore !== undefined  ?  courseData?.ratingScore    :  0   } />
+                          <RatingStars ratingScore={courseData?.ratingScore !== undefined ? courseData?.ratingScore :  0   } />
                       </span>  
                     </p>
                     <p> {courseData?.price  + ' €'}</p>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, FC} from 'react';
-// import './CourseForm.scss';
 import { courseService } from '../../../services/Courses/CourseService';
 import InputText from '../../atoms/InputText/InputText';
 import InputSelect from '../../atoms/InputSelect/InputSelect';
@@ -8,6 +7,7 @@ import { Categories, Composers, Instrument } from '../../../models/types/courses
 import Button from '../../atoms/Button/Button';
 import { useGoNavigate } from '../../../hooks/Navigation';
 import { useParams } from 'react-router-dom';
+import "./CourseForm.scss" ;
 
 interface CourseFormProps {
   typeForm?: 'creat'| 'edit'

@@ -19,7 +19,7 @@ const  Pagination: FC<PaginationProps> = ({ totalPages, currentPage, onPageChang
 
       { currentPage && totalPages && (
         <div> 
-           page {currentPage > 9 ? currentPage  : `0${currentPage}`} sur {totalPages} 
+           page {currentPage > 9 ? currentPage  : `0${currentPage}`} sur {totalPages > 9 ? totalPages  : `0${totalPages}`}
         </div>
        )
       }

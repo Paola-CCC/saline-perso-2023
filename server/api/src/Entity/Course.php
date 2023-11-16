@@ -13,7 +13,7 @@ use App\Entity\User;
 use App\Entity\Composer;
 use App\Entity\Quizz;
 use App\Entity\Images;
-
+use IntlDateFormatter;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
@@ -362,8 +362,12 @@ class Course
     public function getCreatedAt(): ?string
     {
         if ($this->createdAt instanceof \DateTimeImmutable) {
-            return $this->createdAt->format('Y-m-d H:i:s');
-        }   
+            $locale = 'fr_FR';
+            $formatter = new IntlDateFormatter($locale, IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+            $formatter->setPattern('dd/MM/yyyy');
+
+            return $formatter->format($this->createdAt);
+        } 
 
         return null;
     }

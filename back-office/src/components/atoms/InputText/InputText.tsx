@@ -48,6 +48,7 @@ const InputText: React.FC<InputTextProps> = ({ label, placeholder, value, type =
                 required={isRequired}
                 onChange={onChange}
                 rows={4} 
+                maxLength={1100}
                 tabIndex={0}>
               </textarea>
           ) : (

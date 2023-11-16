@@ -19,7 +19,6 @@
     .grid-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      // grid-template-columns: repeat(4, 1fr); 
       gap: 10px;
   
       .grid-item {
@@ -49,7 +48,6 @@
   justify-content: center;
   div.elements-zone {
     width: 80%;
-    // background-color: rgb(123, 48, 48);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 0px 0px 3px rgba(220, 220, 220, 0.319);
@@ -59,7 +57,7 @@
   
       h4 {
         font-size: 1.5rem;
-        color: #333; /* Couleur du texte, ajustez selon vos besoins */
+        color: #333;
       }
     }
   
@@ -70,24 +68,11 @@
       flex-direction: row;
       justify-content: flex-end;
       button {
-        /* Styles communs pour les boutons */
         padding: 10px 20px;
         font-size: 1rem;
         cursor: pointer;
-        // border: none;
         border-radius: 5px;
       }
-  
-      // /* Styles spécifiques pour le bouton "Retour" */
-      // button[kind='secondary'] {
-      //   background-color: #f0f0f0; /* Couleur de fond, ajustez selon vos besoins */
-      //   color: #555; /* Couleur du texte, ajustez selon vos besoins */
-      // }
-  
     }
   }
-
-  // height: 100vh; /* Ajustez la hauteur en fonction de vos besoins */
-
-
 }
