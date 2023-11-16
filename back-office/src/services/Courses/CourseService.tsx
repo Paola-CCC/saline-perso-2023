@@ -26,7 +26,7 @@ const courseAll = async () => {
 const courseDatasCreation = async () => {
   
   try {
-    const response : AxiosResponse<ICoursesDatasCreation> = await httpClient.get(`${URL}/courses/datas-creation`);
+    const response : AxiosResponse<ICoursesDatasCreation> = await httpClient.get(`${URL}/courses-datas-creation`);
     if (response.status >= 200 && response.status <= 299) {
       const courses: ICoursesDatasCreation = response.data;
       return courses;
@@ -68,9 +68,9 @@ const courseSearching = async (data: Object) => {
   }
 };
 
-const courseShow = async (Id: number | string) => {
+const courseShow = async (Id: number | string | undefined) => {
   try {
-    const response = await httpClient.get(`${URL}/api/courses/${Id}`);
+    const response = await httpClient.get(`${URL}/courses/${Id}`);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {
@@ -82,12 +82,12 @@ const courseShow = async (Id: number | string) => {
 };
 
 // récuperer les documents par cours
-const courseEdit = async ( Id: number | string, data: Object) => {
+const courseEdit = async ( Id: number | string | undefined, data: Object) => {
   try {
-    const response = await httpClient.put(`${URL}/courses/${Id}`,data);
+    const response = await httpClient.put(`${URL}/update-course/${Id}`,data);
 
     if (response.status >= 200 && response.status <= 299) {
-      return response.data;
+      return response;
     } else {
       console.log("error message ", response);
     }
@@ -111,13 +111,32 @@ const courseGetFiles = async (Id: number | string) => {
   }
 };
 
-const courseDelete = async (Id: number | string) => {
+const courseDelete = async (Id: number | string | undefined) => {
   try {
-    const response = await httpClient.delete(`${URL}/courses/${Id}`);
+    const response = await httpClient.delete(`${URL}/courses-delete/${Id}`);
     if (response.status >= 200 && response.status <= 299) {
       return response;
     } else {
       console.log("error message ", response);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+interface CourseDeleteManyParams {
+  courseIds: number[];
+}
+
+const courseDeleteMany = async (params: CourseDeleteManyParams): Promise<AxiosResponse | void> => {
+  try {
+        
+    const response = await httpClient.delete(`${URL}/courses-delete-many?courseIds=[${params.courseIds}]`);
+
+    if (response.status >= 200 && response.status <= 299) {
+      return response;
+    } else {
+      console.log("Error message", response);
     }
   } catch (error) {
     console.error(error);
@@ -133,5 +152,6 @@ export const courseService = {
   courseEdit,
   courseSearching,
   courseGetFiles,
-  courseAdd
+  courseAdd,
+  courseDeleteMany
 };

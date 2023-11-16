@@ -44,13 +44,16 @@ class CourseController extends AbstractController
 
     }
 
-    #[Route('/api/courses/{courseId}', name: 'course_by_id', methods: ['GET'])]
-    public function getCourseById(int $courseId, CourseRepository $courseRepository, SerializerInterface $serializer): JsonResponse
+    #[Route('/courses/{courseId}', name: 'course_by_id', methods: ['GET'])]
+    public function getCoursesWithId(string $courseId, CourseRepository $courseRepository, SerializerInterface $serializer): JsonResponse
     {
-        $course = $courseRepository->find($courseId);
+
+        $type = (int)$courseId;
+
+        $course = $courseRepository->find($type);
 
         if (!$course) {
-            return new JsonResponse(['message' => 'Course not found'], 404);
+            return new JsonResponse(['message' => 'Course not found TEST'], 404);
         }
 
         $serializedCourse = $serializer->serialize($course, 'json', ['groups' => ['course', 'course_users', 'course_professor', 'course_composers', 'course_comments', 'course_instruments', 'instrument', 'course_category', 'category'], 'datetime_format' => 'Y-m-d H:i:s']);
@@ -190,8 +193,8 @@ class CourseController extends AbstractController
     }
 
 
-    #[Route('/courses/datas-creation', name: 'course_datas-creation', methods: ['GET'])]
-    public function getAlllCoursesDatas( SerializerInterface $serializer) {
+    #[Route('/courses-datas-creation', name: 'course_datas-creation', methods: ['GET'])]
+    public function getAllCoursesDatas( SerializerInterface $serializer) {
 
         $instruments = $this->entityManager->getRepository(Instrument::class)->findAll();
         $composers = $this->entityManager->getRepository(Composer::class)->findAll();
@@ -226,19 +229,19 @@ class CourseController extends AbstractController
         $category = $this->entityManager->getRepository(Category::class)->find($data['categoryId']);
         $composer = $this->entityManager->getRepository(Composer::class)->find($data['composerId']);
 
-        // if (!$instrument) {
-        //     return new Response("Instrument not found", 404);
-        // }
-        // if (!$professor) {
-        //     return new Response("Professor not found", 404);
-        // }
-        // if (!$category) {
-        //     return new Response("Category not found", 404);
-        // }
+        if (!$instrument) {
+            return new Response("Instrument not found", 404);
+        }
+        if (!$professor) {
+            return new Response("Professor not found", 404);
+        }
+        if (!$category) {
+            return new Response("Category not found", 404);
+        }
 
-        // if (!$composer) {
-        //     return new Response("Composer not found", 404);
-        // }  
+        if (!$composer) {
+            return new Response("Composer not found", 404);
+        }  
 
         $course = new Course();
         $course->setCreatedAt(new \DateTimeImmutable());
@@ -258,62 +261,52 @@ class CourseController extends AbstractController
 
     }
 
-    #[Route('/courses/{courseId}', name: 'course_update', methods: ['PUT'])]
-    public function updateCourse(int $courseId, CourseRepository $courseRepository, Request $request): Response
+    #[Route('/update-course/{courseId}', name: 'update_course', methods: ['PUT'])]
+    public function courseUpdate(Request $request , int $courseId, CourseRepository $courseRepository,): Response
     {
         $data = json_decode($request->getContent(), true);
-
-        $course = $courseRepository->find($courseId);
+        $instrument = $this->entityManager->getRepository(Instrument::class)->find($data['instrumentId']);
+        $professor = $this->entityManager->getRepository(User::class)->find($data['professorId']);
+        $category = $this->entityManager->getRepository(Category::class)->find($data['categoryId']);
+        $composer = $this->entityManager->getRepository(Composer::class)->find($data['composerId']);
+        $course = $this->entityManager->getRepository(Course::class)->find($courseId);
 
         if (!$course) {
             return new JsonResponse(['message' => 'Course not found'], 404);
         }
+        if (!$instrument) {
+            return new Response("Instrument not found", 404);
+        }
+        if (!$professor) {
+            return new Response("Professor not found", 404);
+        }
+        if (!$category) {
+            return new Response("Category not found", 404);
+        }
 
-        $course->setUpdatedAt(new \DateTimeImmutable());
+        if (!$composer) {
+            return new Response("Composer not found", 404);
+        }  
+
+        $course->setCreatedAt(new \DateTimeImmutable());
         $course->setTitle($data['title']);
         $course->setDescription($data['description']);
         $course->setPrice($data['price']);
         $course->setLinkVideo($data['linkVideo']);
         $course->setPreview($data['preview']);
-
-        $instrumentId = $data['instrument']['id'];
-        $instrument = $this->entityManager->getRepository(Instrument::class)->find($instrumentId);
-        if (!$instrument) {
-            return new Response("Instrument not found", 404);
-        }
+        $course->setPhoto($data['photo']);
         $course->setInstrument($instrument);
-        $professorId = $data['professor']['id'];
-        $professor = $this->entityManager->getRepository(User::class)->find($professorId);
-        if (!$professor) {
-            return new Response("Professor not found", 404);
-        }
         $course->setProfessor($professor);
-        foreach($data['composer'] as $value){
-            $composerId = $value['id'];
-            $composer = $this->entityManager->getRepository(Composer::class)->find($composerId);
-            if (!$composer) {
-                return new Response("Composer not found", 404);
-            }
-            $course->addComposer($composer);
-        }
-        foreach($data['category'] as $value){
-            $categoryName = $value['name'];
-            $category = $this->entityManager->getRepository(Category::class)->findOneBy(['name' => $categoryName]);
-            if (!$category) {
-                return new Response("Category not found", 404);
-            }
-            $course->addCategory($category);
-        }
-
+        $course->addComposer($composer);
+        $course->addCategory($category);
         $this->entityManager->persist($course);
         $this->entityManager->flush();
+        return new Response('Course created successfully', Response::HTTP_CREATED);
 
-        return new Response('Course updated successfully', Response::HTTP_OK);
-        
     }
 
-    #[Route('/courses/{courseId}', name: 'course_delete', methods: ['DELETE'])]
-    public function deleteCourse(int $courseId, CourseRepository $courseRepository, Request $request): Response
+    #[Route('/courses-delete/{courseId}', name: 'course_delete', methods: ['DELETE'])]
+    public function deleteCourse(int $courseId, CourseRepository $courseRepository): Response
     {
         $course = $courseRepository->find($courseId);
 
@@ -324,6 +317,30 @@ class CourseController extends AbstractController
         $courseRepository->remove($course, true);
 
         return new Response('Course deleted successfully', Response::HTTP_OK);
+    }
+
+    #[Route('/courses-delete-many', name: 'course_delete_many', methods: ['DELETE'])]
+    public function deleteCourseMany(Request $request, CourseRepository $courseRepository): JsonResponse
+    {
+        $courseIds = $request->query->get('courseIds');
+    
+        if (!$courseIds) {
+            return new JsonResponse(['message' => 'No course IDs provided'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        $courseIds = json_decode($courseIds, true);
+    
+        foreach ($courseIds as $courseId) {
+            $course = $courseRepository->find($courseId);
+    
+            if ($course) {
+                $this->entityManager->remove($course);
+            }
+        }
+    
+        $this->entityManager->flush();
+    
+        return new JsonResponse(['message' => 'Courses deleted successfully'], Response::HTTP_OK);
     }
 
 }

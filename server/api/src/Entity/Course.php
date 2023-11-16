@@ -103,7 +103,7 @@ class Course
     #[Groups(['quizz_course'])]
     private ?Quizz $quizz = null;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Progression::class)]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Progression::class,cascade: ["remove"])]
     private Collection $progressions;
 
     #[ORM\OneToOne(targetEntity: Images::class, inversedBy: "course", cascade: ["persist", "remove"])]

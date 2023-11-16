@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import './CourseEdit.scss';
+import CourseForm from '../../templates/CoursesForm/CourseForm';
 
 interface CourseEditProps {}
 
 const CourseEdit: FC<CourseEditProps> = () => (
-  <div className="CourseEdit" data-testid="CourseEdit">
-    CourseEdit Component
-  </div>
+  <>
+    < CourseForm typeForm='edit' />
+  </>
 );
 
 export default CourseEdit;

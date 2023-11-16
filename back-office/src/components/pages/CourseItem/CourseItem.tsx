@@ -92,12 +92,16 @@ const CourseItem: FC<CourseItemProps> = () => {
 
 
   const handleUpdate = () => {
-    navigateTo(`/courses/edit`);
+    navigateTo(`/courses/${Id}/edit`);
   };
-  const [embedId , setEmbedId] = useState< string |undefined>(undefined);
+  const [embedId, setEmbedId] = useState< string |undefined>(undefined);
 
-  const handleDelete = () => {
-    navigateTo(`/courses/delete`);
+  const handleDelete = async() => {
+    let response = await courseService.courseDelete(Id);
+    if( response && response.status >= 200 ) {
+      navigateTo(`/courses`);
+    }
+
   };
 
   useEffect(() => {
@@ -122,8 +126,6 @@ const CourseItem: FC<CourseItemProps> = () => {
         { canShowVideo && (
           <div className='media video'>
               <iframe
-                // width="560"
-                // height="315"
                 className="responsive-iframe"
                 src={`https://www.youtube.com/embed/${embedId}`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -175,7 +177,7 @@ const CourseItem: FC<CourseItemProps> = () => {
                     <p> {courseData?.price  + ' €'}</p>
                   </div>
                 </div>
-                </div>
+          </div>
         </div>
       </div>
 

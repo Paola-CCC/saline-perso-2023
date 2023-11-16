@@ -14,8 +14,8 @@ const RoutesNavigation = () => {
         <Route path="courses" element={<CoursesList />} />
         <Route path="courses/:Id" element={<CourseItem />} />
         <Route path="courses/add" element={<CourseAdd />} />
-        <Route path="courses/edit" element={<CourseEdit />} />
-        <Route path="courses/delete" element={<CourseDelete />} />
+        <Route path="courses/:Id/edit" element={<CourseEdit />} />
+        <Route path="courses/:Id/delete" element={<CourseDelete />} />
 
         <Route path="instruments" element={<ListInstrument />} />
         <Route path="categories" element={<ListCategory />} />

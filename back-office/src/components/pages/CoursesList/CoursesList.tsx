@@ -20,8 +20,15 @@ const CoursesList = () => {
   const totalPages =  datas !== null ? Math.ceil(datas.length / itemsPerPage) : 0;
 
 
+  const [courseToDelete, setCourseToDelete] = useState<number[] >([]);
+
   const handleAdd = () => {
     navigateTo(`/courses/add`);
+  };
+
+  const handleDeleteMultiple = async () => {
+    let datas = await courseService.courseDeleteMany({ courseIds: courseToDelete });
+      window.location.reload();
   };
 
 
@@ -29,6 +36,20 @@ const CoursesList = () => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);       
     }
+  };
+
+  
+  const handleChange = (courseToDelete: number) => {
+    setCourseToDelete(prevArray => {
+      const index = prevArray.indexOf(courseToDelete);
+      if (index !== -1) {
+        const newArray = [...prevArray];
+        newArray.splice(index, 1);
+        return newArray;
+      } else {
+        return [...prevArray, courseToDelete!];
+      }
+    });
   };
 
   useEffect(() => {
@@ -39,12 +60,12 @@ const CoursesList = () => {
         setDatas(datas);
       };
       loadDatas();
-    }
-  },[]);
+    }    
+  },[courseToDelete]);
 
  return (
   <>
-    <ButtonGroupList handleAdd={handleAdd} />
+    <ButtonGroupList handleAdd={handleAdd} handleDelete={handleDeleteMultiple} />
     <div className='container-list-courses card'>
       <table className='courses'>
         <thead>
@@ -63,7 +84,7 @@ const CoursesList = () => {
           {currentData.map((value : any, index : any) => (
             <tr key={index} >
               <td className='txt'>
-                <input type='checkbox'></input>
+                <input type='checkbox'  onChange={()=> handleChange(value.id)}></input>
               </td>
               <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
                 {value.photo && (
