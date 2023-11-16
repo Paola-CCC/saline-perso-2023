@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef, FC} from 'react';
 // import './CourseForm.scss';
 import { courseService } from '../../../services/Courses/CourseService';
 import InputText from '../../atoms/InputText/InputText';
@@ -9,7 +9,11 @@ import Button from '../../atoms/Button/Button';
 import { useGoNavigate } from '../../../hooks/Navigation';
 import { useParams } from 'react-router-dom';
 
-const CourseForm  = ({typeForm }) => {
+interface CourseFormProps {
+  typeForm?: 'creat'| 'edit'
+}
+
+const CourseForm: FC<CourseFormProps>  = ({typeForm }) => {
 
     const [courseCreationIsSuccesful, setCourseCreationIsSuccesful] = useState< boolean | null > (null);
     const { navigateTo } = useGoNavigate();
@@ -133,7 +137,7 @@ const CourseForm  = ({typeForm }) => {
 
     try {
 
-      if( typeForm === 'create') {
+      if( typeForm === 'creat') {
         response = await courseService.courseAdd(newCourse);
       }
 

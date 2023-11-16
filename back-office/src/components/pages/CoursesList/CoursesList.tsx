@@ -27,10 +27,9 @@ const CoursesList = () => {
   };
 
   const handleDeleteMultiple = async () => {
-    let datas = await courseService.courseDeleteMany({ courseIds: courseToDelete });
-      window.location.reload();
+    await courseService.courseDeleteMany({ courseIds: courseToDelete });
+    window.location.reload();
   };
-
 
   const handlePageChange = (newPage : number) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -38,7 +37,6 @@ const CoursesList = () => {
     }
   };
 
-  
   const handleChange = (courseToDelete: number) => {
     setCourseToDelete(prevArray => {
       const index = prevArray.indexOf(courseToDelete);
@@ -84,7 +82,7 @@ const CoursesList = () => {
           {currentData.map((value : any, index : any) => (
             <tr key={index} >
               <td className='txt'>
-                <input type='checkbox'  onChange={()=> handleChange(value.id)}></input>
+                <input type='checkbox' checked={courseToDelete.includes(value.id)} onChange={()=> handleChange(value.id)}></input>
               </td>
               <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/courses/${value.id}`)} >
                 {value.photo && (

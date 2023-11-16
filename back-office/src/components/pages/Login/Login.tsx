@@ -27,10 +27,6 @@ const Login = () => {
       if (response && response.token !== '' && response.token !== undefined) {
         localStorage.setItem('jwt', JSON.stringify(response.token));
         setIsAuthenticated(true);
-        let jwtDecoded :any = jwt_decode(response.token);
-        setUserId(jwtDecoded.userId);        
-        setUserRole(jwtDecoded.roles);
-        navigate("/courses");
 
       } else {
           console.log("Le Token Register est vide");

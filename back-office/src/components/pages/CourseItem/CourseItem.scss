@@ -12,11 +12,13 @@
       img,
       iframe {
         border: none;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-radius: 10px;
         height: 315px;
         width: 560px;
-        border-radius: 10px;
+      }
+
+      img {
+        object-fit: cover;
       }
     }
     .course-heading {
@@ -137,7 +139,8 @@
 
         &.img img {
           width: 100%;
-          height: auto;
+          height: 315px;
+          object-fit: cover;
         }
       }
     }

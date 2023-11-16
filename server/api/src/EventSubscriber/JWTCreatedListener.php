@@ -37,6 +37,7 @@ final class JWTCreatedListener
             // Récupérez l'ID de l'utilisateur et ajoutez-le au payload du JWT
             $userId = $userEntity->getId();
             $payload['userId'] = $userId;
+            $payload['username'] = $userEntity->getUsername();
         }
 
         $event->setData($payload);

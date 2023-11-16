@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./InputSelect.scss";
 
-
-interface Option {
-  value: number;
-  label: string;
-}
 
 interface InputSelectProps {
   label?: string;

@@ -20,9 +20,6 @@ const AuthContextProvider = ({children}) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
     
-    // const usernameStored = localStorage.getItem('username') ? localStorage.getItem('username') : '';
-
-
     /** Retire JWT du localstorage et change la variable du context */
     const handleLogout = useCallback(() => {
       if (localStorage.getItem('jwt')) {
@@ -51,9 +48,9 @@ const AuthContextProvider = ({children}) => {
 
       if( isAuthenticated ){
         let jwtDecoded  = jwt_decode(JSON.parse(token));
-        // setUserId(parseInt(jwtDecoded.userId));
-        // setUserRole(jwtDecoded.roles);
-        // setUsername(usernameStored);
+        setUserId(parseInt(jwtDecoded.userId));
+        setUserRole(jwtDecoded.roles);
+        setUsername(jwtDecoded.username);
       }
 
     }, [isJWTinlocalStorage ,token,userId,isAuthenticated]);
