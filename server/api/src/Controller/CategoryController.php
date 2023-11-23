@@ -32,7 +32,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/new', name: 'app_category_new', methods: ['POST'])]
-    public function new(Request $request, CategoryRepository $categoryRepository, SerializerInterface $serializer): JsonResponse
+    public function new(Request $request, CategoryRepository $categoryRepository, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
         $category = $serializer->deserialize($data, Category::class, 'json');
@@ -42,7 +42,32 @@ class CategoryController extends AbstractController
 
         $data = $serializer->serialize($category, 'json');
 
-        return new JsonResponse($data, Response::HTTP_CREATED, [], true);
+        return new Response('Category created successfully', Response::HTTP_CREATED);
+
+    }
+
+    #[Route('/delete-many', name: 'category_delete_many', methods: ['DELETE'])]
+    public function deleteCourseMany(Request $request, CategoryRepository $categoryRepository): JsonResponse
+    {
+        $composersIDs = $request->query->get('categoriesIDs');
+    
+        if (!$composersIDs) {
+            return new JsonResponse(['message' => 'No course IDs provided'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        $composersIDs = json_decode($composersIDs, true);
+    
+        foreach ($composersIDs as $courseId) {
+            $course = $categoryRepository->find($courseId);
+    
+            if ($course) {
+                $this->entityManager->remove($course);
+            }
+        }
+    
+        $this->entityManager->flush();
+    
+        return new JsonResponse(['message' => 'Courses deleted successfully'], Response::HTTP_OK);
     }
 
 

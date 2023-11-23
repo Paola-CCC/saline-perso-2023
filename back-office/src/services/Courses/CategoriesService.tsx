@@ -16,10 +16,45 @@ const categoriesAll = async () => {
         throw new Error(`Erreur de réponse de l'API, code : ${response?.status}`);
       }
     } catch (error) {
-      console.error('Erreur lors de la récupération des cours :', error);
+      console.error('Erreur lors de la récupération des catégories :', error);
       throw error; 
     }
   };
+
+
+  const categoryAdd = async (newCategory : Object) => {
+    try {
+        const response = await httpClient.post(`${URL}/category/new`, newCategory);
+        if (response.status >= 200 && response.status <= 299) {
+          return response;
+        } else {
+          throw new Error(`Erreur de réponse de l'API, code : ${response?.status}`);
+        }
+    } catch (error) {
+      console.error('Erreur lors de la création de la catégorie :', error);
+      throw error; 
+    }
+};
+
+
+interface categoriesDeleteManyParams {
+  categoriesIDs: number[];
+}
+
+const categoriesDeleteMany = async (params: categoriesDeleteManyParams): Promise<AxiosResponse | void> => {
+  try {
+
+    const response = await httpClient.delete(`${URL}/category/delete-many?categoriesIDs=[${params.categoriesIDs}]`);
+
+    if (response.status >= 200 && response.status <= 299) {
+      return response;
+    } else {
+      console.log("Error message", response);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 //   const courseShowById = async (Id: number | string) => {
 //     try {
@@ -81,5 +116,6 @@ const categoriesAll = async () => {
 
   export const categoriesService = {
     categoriesAll,
-    
+    categoryAdd,
+    categoriesDeleteMany 
   };

@@ -9,6 +9,11 @@ div.pagination {
     border: 1px solid rgba(237, 237, 237, 0.929);
     background-color: rgb(249, 249, 249);
 
+    &.empty {
+        display: block;
+        margin-top: 5px;
+    }
+
     div {
         margin: 0 5px;
         width: 130px;

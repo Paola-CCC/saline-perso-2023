@@ -101,7 +101,7 @@ const Sidebar: FC<SidebarProps> = () => {
               </li>
 
               <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/categories">Categories</Link>
+                  <Link className="link-sidebar" to="/categories">Catégories</Link>
               </li>
               <li className="sidebar-item-nested">
                   <Link className="link-sidebar" to="/composers">Compositeurs</Link>

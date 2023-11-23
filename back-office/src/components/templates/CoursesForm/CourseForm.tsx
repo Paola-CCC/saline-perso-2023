@@ -20,7 +20,7 @@ const CourseForm: FC<CourseFormProps>  = ({typeForm }) => {
     const [optionsProfessors, setOptionsProfessors] = useState([{ value: "", label: "Choisir un professeur" }]);
     const [optionsCategories, setOptionsCategories] = useState([{ value: "", label: "Choisir une catégorie" }]);
     const [optionsCompositors, setOptionsCompositors] = useState([{ value: "", label: "Choisir un compositeur" }]);
-    const [optionsInstruments, setPptionsInstruments] = useState([{ value: "", label: "Choisir un instrument" }]);
+    const [optionsInstruments, setOptionsInstruments] = useState([{ value: "", label: "Choisir un instrument" }]);
     const { Id } = useParams();
     
     const initialStateNewCourse = {
@@ -94,7 +94,7 @@ const CourseForm: FC<CourseFormProps>  = ({typeForm }) => {
             label:  e.name
           }
         });
-        setPptionsInstruments([...optionsInstruments, ...instruments]);
+        setOptionsInstruments([...optionsInstruments, ...instruments]);
       };
 
       const getCourseDatasForCreation = async() => {

@@ -1,9 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { CourseAdd, CourseDelete, CourseEdit, CourseItem, CoursesList, Homepage, ListCategory, ListComposer, ListInstrument} from '../components/pages';
-
-
-
+import { CategoriesAdd, CategoriesList, ComposersAdd, ComposersList, CourseAdd, CourseDelete, CourseEdit, CourseItem, CoursesList, Homepage, InstrumentAdd, InstrumentsList} from '../components/pages';
 
 const RoutesNavigation = () => {
   return (
@@ -17,18 +14,15 @@ const RoutesNavigation = () => {
         <Route path="courses/:Id/edit" element={<CourseEdit />} />
         <Route path="courses/:Id/delete" element={<CourseDelete />} />
 
-        <Route path="instruments" element={<ListInstrument />} />
+        <Route path="instruments" element={<InstrumentsList/>} />
+        <Route path="instruments/add" element={< InstrumentAdd />} />
 
-        {/* <Route path="instruments/:Id" element={<CourseItem />} />
-        <Route path="instruments/add" element={<CourseAdd />} />
-        <Route path="instruments/:Id/edit" element={<CourseEdit />} />
-        <Route path="instruments/:Id/delete" element={<CourseDelete />} /> */}
+        <Route path="categories" element={<CategoriesList/>} />
+        <Route path="categories/add" element={< CategoriesAdd />} />
 
+        <Route path="composers" element={< ComposersList />} />
+        <Route path="composers/add" element={< ComposersAdd />} />
 
-
-
-        <Route path="categories" element={<ListCategory />} />
-        <Route path="composers" element={<ListComposer />} />
     </Routes>
   )
 }

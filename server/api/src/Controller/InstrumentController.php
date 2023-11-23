@@ -33,8 +33,8 @@ class InstrumentController extends AbstractController
 
         $serializedInstruments = $serializer->serialize($instrumentsList, 'json', ['groups' => ['instrument',
         'instruments_courses', 'course',
-        // 'instruments_composers', 
-        // 'user', 'instruments_users'
+        'instruments_composers', 
+        'user', 'instruments_users'
         ]]);
 
         return new JsonResponse($serializedInstruments, 200, [], true);
@@ -57,7 +57,7 @@ class InstrumentController extends AbstractController
         return new JsonResponse($serializedInstrument, 200, [], true);
     }
 
-    #[Route('/new-instrument', name: 'new_instrument', methods: ['POST'])]
+    #[Route('/api/new-instrument', name: 'new_instrument', methods: ['POST'])]
     public function newInstrument(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
@@ -105,6 +105,30 @@ class InstrumentController extends AbstractController
         $this->entityManager->flush();
 
         return new Response('Instrument deleted successfully', Response::HTTP_OK);
+    }
+
+    #[Route('/instruments-delete-many', name: 'instruments_delete_many', methods: ['DELETE'])]
+    public function deleteCourseMany(Request $request, InstrumentRepository $instrumentRepository): JsonResponse
+    {
+        $instrumentsIDs = $request->query->get('instrumentsIDs');
+    
+        if (!$instrumentsIDs) {
+            return new JsonResponse(['message' => 'No course IDs provided'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        $instrumentsIDs = json_decode($instrumentsIDs, true);
+    
+        foreach ($instrumentsIDs as $instrumentsIds) {
+            $instrument = $instrumentRepository->find($instrumentsIds);
+    
+            if ($instrument) {
+                $this->entityManager->remove($instrument);
+            }
+        }
+    
+        $this->entityManager->flush();
+    
+        return new JsonResponse(['message' => 'Instruments deleted successfully'], Response::HTTP_OK);
     }
 
 }

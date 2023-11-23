@@ -49,32 +49,48 @@ class ComposerController extends AbstractController
     public function new(Request $request, ComposerRepository $composerRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+        $instrument = $this->entityManager->getRepository(Instrument::class)->find($data['instrumentId']);
+
+        if (!$instrument) {
+            return new JsonResponse(['message' => 'Instrument not found'], 404);
+        }
         
         $composer = new Composer();
         $composer->setFullName($data['fullName']);
         $composer->setBiography($data['biography']);
+        $composer->addInstrument($instrument);
 
-        // Ajouter les instruments
-        $instruments = $data['instruments'] ?? [];
-        foreach ($instruments as $instrumentData) {
-            $instrumentName = $instrumentData['name'];
-
-            // Vérifier si l'instrument existe déjà en base de données
-            $instrument = $this->entityManager->getRepository(Instrument::class)->findOneBy(['name' => $instrumentName]);
-            if (!$instrument) {
-                // Si l'instrument n'existe pas, créez un nouvel objet Instrument
-                $instrument = new Instrument();
-                $instrument->setName($instrumentName);
-                $this->entityManager->persist($instrument);
-            }
-
-            $composer->addInstrument($instrument);
-        }
         // Enregistrer le compositeur en base de données
         $this->entityManager->persist($composer);
         $this->entityManager->flush();
 
         return new JsonResponse(['message' => 'Composer created'], Response::HTTP_CREATED);
+    }
+
+
+
+    #[Route('/delete-many', name: 'composer_delete_many', methods: ['DELETE'])]
+    public function deleteCourseMany(Request $request, ComposerRepository $composerRepository): JsonResponse
+    {
+        $composersIDs = $request->query->get('composersIDs');
+    
+        if (!$composersIDs) {
+            return new JsonResponse(['message' => 'No course IDs provided'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        $composersIDs = json_decode($composersIDs, true);
+    
+        foreach ($composersIDs as $courseId) {
+            $course = $composerRepository->find($courseId);
+    
+            if ($course) {
+                $this->entityManager->remove($course);
+            }
+        }
+    
+        $this->entityManager->flush();
+    
+        return new JsonResponse(['message' => 'Courses deleted successfully'], Response::HTTP_OK);
     }
 
     #[Route('/{id}', name: 'app_composer_show', methods: ['GET'])]
