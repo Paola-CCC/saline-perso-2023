@@ -21,18 +21,18 @@ const composersAll = async () => {
   }
 };
 
-//   const courseShowById = async (Id: number | string) => {
-//     try {
-//       const response = await httpClient.get(`${URL}/api/courses/${Id}`);
-//       if (response.status >= 200 && response.status <= 299) {
-//         return response.data;
-//       } else {
-//         console.log("error message ", response);
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+  const composersShowById = async (Id: number | string | undefined) => {
+    try {
+      const response = await httpClient.get(`${URL}/composer/${Id}`);
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        console.log("error message ", response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
 const composersAdd = async (data: Object) => {
@@ -68,38 +68,40 @@ const composersDeleteMany = async (params: composersDeleteManyParams): Promise<A
 };
 
 
-// // récuperer les documents par cours
-// const courseEdit = async ( Id: number | string, data: Object) => {
-//     try {
-//       const response = await httpClient.put(`${URL}/courses/${Id}`,data);
+const composersEdit = async ( Id: number | string | undefined, data: Object) => {
+    try {
+      const response = await httpClient.put(`${URL}/composer/${Id}/edit`,data);
 
-//       if (response.status >= 200 && response.status <= 299) {
-//         return response.data;
-//       } else {
-//         console.log("error message ", response);
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+      if (response.status >= 200 && response.status <= 299) {
+        return response.data;
+      } else {
+        console.log("error message ", response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
-//   const courseDelete = async (Id: number | string) => {
-//     try {
-//       const response = await httpClient.delete(`${URL}/courses/${Id}`);
-//       if (response.status >= 200 && response.status <= 299) {
-//         return response;
-//       } else {
-//         console.log("error message ", response);
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+  const composersDelete = async (Id: number | string | undefined) => {
+    try {
+      const response = await httpClient.delete(`${URL}/composer/${Id}`);
+      if (response.status >= 200 && response.status <= 299) {
+        return response;
+      } else {
+        console.log("error message ", response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
 export const composersService = {
   composersAll,
   composersAdd,
-  composersDeleteMany
+  composersDeleteMany,
+  composersShowById,
+  composersDelete,
+  composersEdit
 };

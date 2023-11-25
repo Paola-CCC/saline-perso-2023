@@ -108,38 +108,30 @@ class ComposerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_composer_edit', methods: ['PUT'])]
-    public function edit(Request $request, Composer $composer, ComposerRepository $composerRepository, InstrumentRepository $instrumentRepository): JsonResponse
+    public function edit(string $id  ,   Request $request, Composer $composer, ComposerRepository $composerRepository, InstrumentRepository $instrumentRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        
+        $instrument = $this->entityManager->getRepository(Instrument::class)->find($data['instrumentId']);
+        $composer = $this->entityManager->getRepository(Composer::class)->find($data['id']);
+
+        if (!$composer) {
+            return new Response("Composer not found", 404);
+        }  
+
+        $composer = new Composer();
         $composer->setFullName($data['fullName']);
         $composer->setBiography($data['biography']);
+        $composer->addInstrument($instrument);
 
-        // Supprimer les instruments existants du compositeur
-        $composer->getInstrument()->clear();
+        // Enregistrer le compositeur en base de données
+        $this->entityManager->persist($composer);
+        $this->entityManager->flush();
 
-        // Ajouter les instruments
-        $instruments = $data['instruments'] ?? [];
-        foreach ($instruments as $instrumentData) {
-            $instrumentName = $instrumentData['name'];
+        
+        return new JsonResponse(['message' => 'Courses updated successfully'], Response::HTTP_OK);
 
-            // Vérifier si l'instrument existe déjà en base de données
-            $instrument = $instrumentRepository->findOneBy(['name' => $instrumentName]);
-            if (!$instrument) {
-                // Si l'instrument n'existe pas, créez un nouvel objet Instrument
-                $instrument = new Instrument();
-                $instrument->setName($instrumentName);
-                $instrumentRepository->save($instrument);
-            }
 
-            // Ajouter l'instrument au compositeur
-            $composer->addInstrument($instrument);
-        }
 
-        // Enregistrer les modifications du compositeur en base de données
-        $composerRepository->save($composer, true);
-
-        return new JsonResponse(['message' => 'Composer updated'], Response::HTTP_OK);
     }
     #[Route('/{id}', name: 'app_composer_delete', methods: ['DELETE'])]
     public function delete(Composer $composer, ComposerRepository $composerRepository): JsonResponse

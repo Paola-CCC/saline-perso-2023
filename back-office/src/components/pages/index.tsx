@@ -18,3 +18,5 @@ export { default as CategoriesAdd } from './categories/CategoriesAdd/CategoriesA
 
 export { default as ComposersAdd } from './composers/ComposersAdd/ComposersAdd';
 export { default as ComposersList } from './composers/ComposersList/ComposersList';
+export { default as ComposersItem } from './composers/ComposersItem/ComposersItem';
+export { default as ComposersEdit } from './composers/ComposersEdit/ComposersEdit';
