@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { CategoriesAdd, CategoriesList, ComposersAdd, ComposersEdit, ComposersItem, ComposersList, CourseAdd, CourseDelete, CourseEdit, CourseItem, CoursesList, Homepage, InstrumentAdd, InstrumentsList} from '../components/pages';
+import ProfessorsList from '../components/pages/professors/ProfessorsList/ProfessorsList';
+import ProfessorsAdd from '../components/pages/professors/ProfessorsAdd/ProfessorsAdd';
 
 const RoutesNavigation = () => {
   return (
@@ -24,6 +26,8 @@ const RoutesNavigation = () => {
         <Route path="composers/:Id" element={<ComposersItem />} />
         <Route path="composers/:Id/edit" element={<ComposersEdit />} />
 
+        <Route path="professors" element={< ProfessorsList />} />
+        <Route path="professors/add" element={< ProfessorsAdd />} />
 
     </Routes>
   )

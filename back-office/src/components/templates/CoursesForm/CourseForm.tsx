@@ -32,7 +32,7 @@ const CourseForm: FC<CourseFormProps>  = ({typeForm }) => {
       photo: '',
       instrumentId: undefined || '',
       professorId: undefined || '',
-      composerId: undefined|| '',
+      composerId: undefined || '',
       categoryId: undefined || ''
     };
 

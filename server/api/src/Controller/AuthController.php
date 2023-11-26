@@ -60,9 +60,12 @@ class AuthController extends AbstractController
 
         if (str_contains($data['email'], '@saline')) {
             $user->setRoles(['ROLE_ADMIN']);
+        } elseif ( $data['roles'] && $data['roles'] === 'ROLE_PROFESSOR') {
+            $user->setRoles(['ROLE_PROFESSOR']);
         } else {
             $user->setRoles(['ROLE_USER']);
         };
+
         $user->setCreatedAt(new \DateTimeImmutable());
         $user->setPhoto('https://64.media.tumblr.com/483ffa0f5c177b4c789e34b1ccc80399/51482898b4695066-0c/s1280x1920/76cd94397a3d0ad8d26cc7ab1cc97f3573ea006c.jpg');
 
