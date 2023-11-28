@@ -12,7 +12,7 @@ interface InputTextProps {
   isRequired?: boolean,
   name?: string,
   errorText?: string,
-  type?: 'search' | 'text' | 'password' | 'textarea'
+  type?: 'search' | 'text' | 'password' | 'textarea' | 'email'
   onChange?: (updatedOptions: any) => void;
 }
 

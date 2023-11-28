@@ -59,6 +59,35 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('/students', name: 'app_students_index', methods: ['GET'])]
+    public function getAllStudents(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $usersList = $userRepository->findAll();
+        $studentsList = array();
+        foreach ($usersList as $user) {
+            if($user->getRoles()[0] == 'ROLE_USER'){
+                array_push($studentsList, $user);
+            }
+        }
+        $jsonUsersList = $serializer->serialize($studentsList, 'json', ['groups' => ['user']]);
+        return new JsonResponse($jsonUsersList, Response::HTTP_OK, ['accept' => 'json'], true);
+    }
+
+    #[Route('/entreprise', name: 'app_entreprise_index', methods: ['GET'])]
+    public function getAllEntreprise(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $usersList = $userRepository->findAll();
+        $studentsList = array();
+        foreach ($usersList as $user) {
+            if($user->getRoles()[0] == 'ROLE_ADMIN'){
+                array_push($studentsList, $user);
+            }
+        }
+        $jsonUsersList = $serializer->serialize($studentsList, 'json', ['groups' => ['user']]);
+        return new JsonResponse($jsonUsersList, Response::HTTP_OK, ['accept' => 'json'], true);
+    }
+
+
     #[Route('/user/{userId}', name: 'app_user_show', methods: ['GET'])]
     public function show(int $userId, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {

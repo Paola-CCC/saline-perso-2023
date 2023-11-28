@@ -52,15 +52,16 @@ class AuthController extends AbstractController
     public function new(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
+        $roles = $data['roles'] ?? '' ;
         $user = new User();
         $user->setFirstName($data['firstName']);
         $user->setLastName($data['lastName']);
-        $user->setUserName($data['username']);
+        $user->setUserName($data['firstName'] . ' ' . $data['lastName']);
         $user->setEmail($data['email']);
 
         if (str_contains($data['email'], '@saline')) {
             $user->setRoles(['ROLE_ADMIN']);
-        } elseif ( $data['roles'] && $data['roles'] === 'ROLE_PROFESSOR') {
+        } elseif ( $roles && $roles === 'ROLE_PROFESSOR') {
             $user->setRoles(['ROLE_PROFESSOR']);
         } else {
             $user->setRoles(['ROLE_USER']);
@@ -72,20 +73,21 @@ class AuthController extends AbstractController
         $instruments = $data['instruments'];
 
         foreach ($instruments as $instrumentName) {
-            $instrument = $this->entityManager->getRepository(Instrument::class)->findOneBy(['name' => $instrumentName]);
+            $instrument = $this->entityManager->getRepository(Instrument::class)->findOneBy(['id' => $instrumentName]);
             $user->addInstrument($instrument);
         }
 
-        $plainPassword = $data['password'];
-        if ($plainPassword !== null) {
+        if ($data['password'] && $data['password'] !== null) {
 
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                $plainPassword
+                $data['password']
             );
             $user->setPassword($hashedPassword);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
+
             //     $email = (new Email())
             //     ->from('support@salineroyalacademie.com')
             //     ->to($user->getEmail())

@@ -2,23 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./InputRadio.scss";
 
 interface Option {
-  value: number;
-  label: string;
+  value?: any ;
+  label?: any;
 }
 
 interface InputRadioProps {
   labelRadioGroup?: string;
-  options: Option[]; 
-  getValues: (updatedOptions: any) => void;
+  options?: Option[]; 
+  selectedOptions?: string,
+  handleChange?: any,
+  name?: string,
 }
 
-const InputRadio : React.FC <InputRadioProps> = ({labelRadioGroup, options,getValues}) => {
-
-  const [selectedOptions, setSelectedOptions] = useState<number | null>(null);
-
-  useEffect(() => {
-    getValues(selectedOptions);
-  })
+const InputRadio : React.FC <InputRadioProps> = ({name, labelRadioGroup, options,selectedOptions, handleChange}) => {
 
   return (
     <>
@@ -26,14 +22,14 @@ const InputRadio : React.FC <InputRadioProps> = ({labelRadioGroup, options,getVa
       <label>{labelRadioGroup}</label>
       )}
       <div className="radio-zone">
-        {options.map((option) => (
+        {options?.map((option) => (
           <label key={option.value} className="">
             <input
               type="radio"
-              value={option.value}
-              checked={selectedOptions === option.value}
-              onChange={() => setSelectedOptions(option.value)}
-              name={option.label}
+              value={option.value }
+              checked={selectedOptions ? true : false}
+              onChange={handleChange}
+              name={name}
             />
             <span > {option.label} </span>
           </label>

@@ -45,6 +45,34 @@ const showProfessorsList = async () => {
     }
 };
 
+const showStudentsList = async () => {
+    try {
+        const response: AxiosResponse<IUsers[]> = await httpClient.get(`${URL}/students`);
+        if (response.status >= 200 && response.status <= 299) {
+            const responses : IUsers[] = response.data ;
+            return responses;
+        } else {
+            console.log("error message ", response);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const showEntrepriseList = async () => {
+    try {
+        const response: AxiosResponse<IUsers[]> = await httpClient.get(`${URL}/entreprise`);
+        if (response.status >= 200 && response.status <= 299) {
+            const responses : IUsers[] = response.data ;
+            return responses;
+        } else {
+            console.log("error message ", response);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const login = async (data: Object) => {
     try {
         const response = await httpClient.post(`${URL}/api/login_check`, data);
@@ -103,7 +131,10 @@ export const usersService = {
     register,
     showById,
     showProfessorsList,
+    showStudentsList,
+    showEntrepriseList,
     showAll,
     updateUser,
-    deleteUser
+    deleteUser,
+
 };

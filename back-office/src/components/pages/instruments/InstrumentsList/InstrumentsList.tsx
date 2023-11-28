@@ -88,8 +88,21 @@ const InstrumentsList: FC<InstrumentsListProps> = () => {
               {/* <td className='txt item-id' tabIndex={0} onClick={() => navigateTo(`/instruments/${value.id}`)} >  Zone ICONE   </td> */}
               <td className='txt item-id'>  { value.id > 9 ? value.id : `0${value.id}` } </td>
               <td className='txt'> { value.name} </td>
-              <td className='txt'> { value.composers.length > 9 ? value.composers.length : `0${value.composers.length}`} </td>
-              <td className='txt'> { value.courses.length > 9  ? value.courses.length : `0${value.courses.length}`} </td>
+              <td className='txt'> 
+                {   value.composers && value.composers.length ? (
+                    value?.composers?.length > 9 ? value?.composers?.length : `0${value?.composers?.length}`
+                    ) : '0'
+                }      
+              </td>
+              <td className='txt'> 
+                {   value.courses && value.courses.length ? (
+                    value?.courses?.length > 9 ? value?.courses?.length : `0${value?.courses?.length}`
+                    ) : '0'
+                }      
+              </td>
+
+
+              {/* <td className='txt'> { value?.courses?.length > 9  ? value?.courses?.length : `0${value?.course?.length}`} </td> */}
             </tr>
           ))}
         </tbody>

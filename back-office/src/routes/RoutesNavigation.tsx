@@ -1,8 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { CategoriesAdd, CategoriesList, ComposersAdd, ComposersEdit, ComposersItem, ComposersList, CourseAdd, CourseDelete, CourseEdit, CourseItem, CoursesList, Homepage, InstrumentAdd, InstrumentsList} from '../components/pages';
-import ProfessorsList from '../components/pages/professors/ProfessorsList/ProfessorsList';
-import ProfessorsAdd from '../components/pages/professors/ProfessorsAdd/ProfessorsAdd';
+import { CategoriesAdd, CategoriesList, ComposersAdd, ComposersEdit, ComposersItem, ComposersList, CourseAdd, CourseEdit, CourseItem, CoursesList, Homepage, InstrumentAdd, InstrumentsList, ProfessorsAdd, ProfessorsEdit, ProfessorsList} from '../components/pages';
+import ProfessorsItem from '../components/pages/professors/ProfessorsItem/ProfessorsItem';
+import StudentsList from '../components/pages/students/StudentsList/StudentsList';
+import EntrepriseList from '../components/pages/entreprise/EntrepriseList/EntrepriseList';
+
 
 const RoutesNavigation = () => {
   return (
@@ -28,6 +30,21 @@ const RoutesNavigation = () => {
 
         <Route path="professors" element={< ProfessorsList />} />
         <Route path="professors/add" element={< ProfessorsAdd />} />
+        <Route path="professors/:Id" element={<ProfessorsItem />} />
+        <Route path="professors/:Id/edit" element={<ProfessorsEdit />} />
+
+
+        <Route path="students" element={< StudentsList />} />
+        {/* <Route path="professors/add" element={< ProfessorsAdd />} />
+        <Route path="professors/:Id" element={<ProfessorsItem />} />
+        <Route path="professors/:Id/edit" element={<ProfessorsEdit />} /> */}
+
+
+        <Route path="entreprise" element={< EntrepriseList />} />
+        {/* <Route path="entreprise/add" element={< ProfessorsAdd />} />
+        <Route path="entreprise/:Id" element={<ProfessorsItem />} />
+        <Route path="entreprise/:Id/edit" element={<ProfessorsEdit />} /> */}
+
 
     </Routes>
   )

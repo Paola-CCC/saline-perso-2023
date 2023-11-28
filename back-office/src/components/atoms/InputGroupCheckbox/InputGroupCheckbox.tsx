@@ -1,51 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./InputGroupCheckbox.scss";
 
 interface Option {
-  value: number;
-  label: string;
+  value?: string | number;
+  label?: string | number;
 }
 
 interface InputGroupCheckboxProps {
   labelCheckboxGroup?: string;
-  options: Option[]; 
-  getValues: (updatedOptions: any) => void;
+  options?: Option[]; 
+  selectedOptions?: any,
+  handleChange: any
 }
 
-const InputGroupCheckbox: React.FC<InputGroupCheckboxProps> = ({ labelCheckboxGroup, options, getValues }) => {
+const InputGroupCheckbox: React.FC<InputGroupCheckboxProps> = ({ labelCheckboxGroup, options,selectedOptions, handleChange }) => {
   
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-
-  const handleCheckboxChange = (option : number) => {
-    if(selectedOptions.includes(option) ){
-      let newArray = selectedOptions.filter((valueChecked) => valueChecked !== option );
-      setSelectedOptions([]);
-      setSelectedOptions([...newArray]);
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
-  useEffect(() => {
-    getValues(selectedOptions);
-  })
-
   return (
     <>
-
       {labelCheckboxGroup && labelCheckboxGroup !== undefined && (
         <label>{labelCheckboxGroup}</label>
       )}
       <div className="checkbox-wrapper">
-        {options.map((option) => (
-          <label key={option.value} className="form-control"  >
+        {options?.map((option, index) => (
+          <label key={index} className="form-control"  >
             <input
               type="checkbox"
               value={option.value}
               name="checkbox-checked"
-              checked={selectedOptions.includes(option.value)}
-              onChange={() => handleCheckboxChange(option.value)}
-            />            
+              checked={selectedOptions?.includes(option.value)}
+              onChange={() => handleChange(option.value)}
+            />  
+                      
             <span> {option.label} </span>
           </label>
         ))}

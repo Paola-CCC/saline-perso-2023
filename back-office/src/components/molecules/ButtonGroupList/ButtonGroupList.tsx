@@ -13,10 +13,13 @@ const ButtonGroupList: FC<ButtonGroupListProps> = ({ handleAdd, handleDelete}) =
 
   return (
     <div className='container-btn'>
-        <Button kind='primary' onClick={handleAdd}>
-          <FontAwesomeIcon icon={faPlus} style={{color: "#fffffc"}} />
-          Ajouter
-        </Button>
+
+        { handleAdd && (
+          <Button kind='primary' onClick={handleAdd}>
+            <FontAwesomeIcon icon={faPlus} style={{color: "#fffffc"}} />
+            Ajouter
+          </Button>
+        )}
         <Button kind='primary' onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} style={{color: "#fffffc"}} />
           Supprimer
