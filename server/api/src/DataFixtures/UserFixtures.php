@@ -36,10 +36,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user = new User();
                 $user->setFirstName('John-David')
                     ->setLastName('DOE')
-                    ->setEmail('admin@dev.com')
+                    ->setEmail('admin@saline-dev.com')
                     ->setUsername('Joe-DD')
                     ->setPassword(password_hash('87654321', PASSWORD_DEFAULT))
-                    ->setRoles(['ROLE_ADMIN']);
+                    ->setPhoto($this->faker->imageUrl(640, 480, 'people', true))
+                    ->setRoles(['ROLE_SUPER_ADMIN']);
                     
                 $manager->persist($user);
                     

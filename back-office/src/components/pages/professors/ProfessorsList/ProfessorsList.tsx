@@ -24,8 +24,8 @@ const ProfessorsList: FC<ProfessorsListProps> = () => {
     navigateTo(`/professors/add`);
   };
   const handleDeleteMultiple = async () => {
-    // await courseService.courseDeleteMany({ courseIds: courseToDelete });
-    window.location.reload();
+    await usersService.usersDeleteMany({ usersIds: professorsToDelete });
+    // window.location.reload();
   };
 
   const handlePageChange = (newPage : number) => {

@@ -28,7 +28,7 @@ const CoursesList = () => {
 
   const handleDeleteMultiple = async () => {
     await courseService.courseDeleteMany({ courseIds: courseToDelete });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handlePageChange = (newPage : number) => {

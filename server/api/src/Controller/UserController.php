@@ -21,7 +21,6 @@ use Symfony\Component\Mime\Email;
 
 
 
-#[Route('')]
 class UserController extends AbstractController
 {
     private $doctrine;
@@ -158,19 +157,45 @@ class UserController extends AbstractController
         return new JsonResponse(['message' => 'User updated successfully'], 200);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['DELETE'])]
-    public function delete(int $id): Response
+    // #[Route('/users-delete/{userID}', name: 'app_user_delete', methods: ['DELETE'])]
+    // public function delete(int $userID): Response
+    // {
+    //     $user = $this->doctrine->getRepository(User::class)->find($userID);
+
+    //     if (!$user) {
+    //         return new JsonResponse(['error' => 'User not found'], 404);
+    //     }
+
+    //     $this->entityManager->remove($user);
+    //     $this->entityManager->flush();
+
+    //     return new JsonResponse(['message' => 'User deleted successfully'], 200);
+    // }
+
+
+
+    #[Route('/users-delete-many', name: 'users_delete_many', methods: ['DELETE'])]
+    public function deleteCourseMany(Request $request, UserRepository $userRepository): JsonResponse
     {
-        $user = $this->doctrine->getRepository(User::class)->find($id);
-
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found'], 404);
+        $usersIds = $request->query->get('usersIds');
+    
+        if (!$usersIds) {
+            return new JsonResponse(['message' => 'No users IDs provided'], Response::HTTP_BAD_REQUEST);
         }
-
-        $this->entityManager->remove($user);
+    
+        $usersIds = json_decode($usersIds, true);
+    
+        foreach ($usersIds as $userId) {
+            $user = $userRepository->find($userId);
+    
+            if ($user) {
+                $this->entityManager->remove($user);
+            }
+        }
+    
         $this->entityManager->flush();
 
-        return new JsonResponse(['message' => 'User deleted successfully'], 200);
+        return new JsonResponse(['message' => 'Users deleted successfully'], 200);
     }
     
 }

@@ -126,6 +126,26 @@ const deleteUser = async (Id: number | string, data: Object) => {
     }
 };
 
+
+interface UsersDeleteManyParams {
+    usersIds: number[];
+  }
+  
+  const usersDeleteMany = async (params: UsersDeleteManyParams): Promise<AxiosResponse | void> => {
+    try {
+          
+      const response = await httpClient.delete(`${URL}/users-delete-many?usersIds=[${params.usersIds}]`);
+  
+      if (response.status >= 200 && response.status <= 299) {
+        return response;
+      } else {
+        console.log("Error message", response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const usersService = {
     login,
     register,
@@ -136,5 +156,6 @@ export const usersService = {
     showAll,
     updateUser,
     deleteUser,
+    usersDeleteMany
 
 };

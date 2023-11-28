@@ -1,40 +1,36 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import './ProfessorsAdd.scss';
+import React, { FC, useState } from 'react';
+import './EntrepriseAdd.scss';
 import InputText from '../../../atoms/InputText/InputText';
 import Button from '../../../atoms/Button/Button';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import { usersService } from '../../../../services/Users/UsersService';
-import InputGroupCheckbox from '../../../atoms/InputGroupCheckbox/InputGroupCheckbox';
-import { Instrument } from '../../../../models/types/courses.types';
 import InputRadio from '../../../atoms/InputRadio/InputRadio';
-import { instrumentService } from '../../../../services/Courses/InstrumentService';
 
-interface ProfessorsAddProps {}
+interface EntrepriseAddProps {}
 
-const ProfessorsAdd: FC<ProfessorsAddProps> = () => { 
+const EntrepriseAdd: FC<EntrepriseAddProps> = () => { 
 
-  const initialStateNewUsers = {
+  const initialStateNewUsers  = {
     firstName: '',
     lastName:'',
     email:'',
     biography: '',
     password: "password",
-    roles: "ROLE_PROFESSOR"
+    roles: "ROLE_ADMIN",
+    instruments:[]
   };
+
 
   const OptionsRoles = [
     {
-      value: 'ROLE_PROFESSOR',
-      label:'Professeur'
+      value: 'ROLE_ADMIN',
+      label:'administrateur'
     },
   ]
 
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
   const [usersCreationIsSuccesful, setUsersCreationIsSuccesful] = useState< boolean | null > (null);
-  const [optionsInstruments, setOptionsInstruments] = useState< any>([]);
   const [newUsers, setNewUsers] = useState(initialStateNewUsers);
 
-  const dataFetchedRef = useRef(false);
   const { navigateTo } = useGoNavigate();
   
   const handleChange = (event: any) => {
@@ -52,66 +48,23 @@ const ProfessorsAdd: FC<ProfessorsAddProps> = () => {
     navigateTo(`/professors`);
   };
 
-  const handleCheckboxChange = (option : number) => {
-    if(selectedOptions.includes(option) ){
-      let newArray = selectedOptions.filter((valueChecked) => valueChecked !== option );
-      setSelectedOptions([]);
-      setSelectedOptions([...newArray]);
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
   const handleSubmit = async () => {
 
     try {
       
-      const datasRegister = {
-        ...newUsers,
-        instruments:selectedOptions  
-      }
-
-      let dataToken = await usersService.register(datasRegister);
+      let dataToken = await usersService.register(newUsers);
     
     } catch (error) {
       console.error('Error creating course', error);
     }
   };
 
-  useEffect(() => {
-
-    const getInstrumentsForOption = (response : Instrument[]) => {
-      const instruments = response.map((e :any) => {
-      return {
-          value: e.id,
-          label: e.name
-      }
-      });
-      setOptionsInstruments([...optionsInstruments, ...instruments]);
-    };
-
-    const displayInstruments = async () => {
-      try {
-          const dataInstruments = await instrumentService.instrumentAll();
-          getInstrumentsForOption(dataInstruments);
-      } catch (error) {
-          console.error(error);
-      };
-    }
-
-    if( dataFetchedRef.current === false ){
-      displayInstruments();
-      dataFetchedRef.current = true;
-    }
-  
-  }, [optionsInstruments,selectedOptions])
-
 
   return (
     <div className='container-global-add'>
       <form className="add-course form">
         <div className='cont-title-page'>
-          <h2 className='title-page-add-course'> Ajouter un professeur </h2> 
+          <h2 className='title-page-add-course'> Ajouter un administrateur </h2> 
         </div>
         
         <div className="mb-3">
@@ -158,27 +111,6 @@ const ProfessorsAdd: FC<ProfessorsAddProps> = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <InputGroupCheckbox
-            options={optionsInstruments}
-            selectedOptions={selectedOptions}
-            labelCheckboxGroup="Instruments"
-            handleChange={(selected :any ) => handleCheckboxChange(selected)}
-          />
-        </div>
-
-        <div className="mb-3">
-          <InputText 
-            label= {"Biographie"}
-            type="textarea"     
-            name='biography' 
-            onChange={handleChange}
-            value={newUsers?.biography || ''}
-            isRequired= {true}
-            errorText={""}
-          />
-        </div>
-
         <div className='cont-add-course-check'>
           <Button kind='secondary' onClick={handleAdd}>
             Retour
@@ -187,9 +119,8 @@ const ProfessorsAdd: FC<ProfessorsAddProps> = () => {
             <span> Créer</span> 
           </Button>
         </div>
-        
       </form>
     </div>
 )};
 
-export default ProfessorsAdd;
+export default EntrepriseAdd;

@@ -4,6 +4,7 @@ import { CategoriesAdd, CategoriesList, ComposersAdd, ComposersEdit, ComposersIt
 import ProfessorsItem from '../components/pages/professors/ProfessorsItem/ProfessorsItem';
 import StudentsList from '../components/pages/students/StudentsList/StudentsList';
 import EntrepriseList from '../components/pages/entreprise/EntrepriseList/EntrepriseList';
+import EntrepriseAdd from '../components/pages/entreprise/EntrepriseAdd/EntrepriseAdd';
 
 
 const RoutesNavigation = () => {
@@ -41,8 +42,7 @@ const RoutesNavigation = () => {
 
 
         <Route path="entreprise" element={< EntrepriseList />} />
-        {/* <Route path="entreprise/add" element={< ProfessorsAdd />} />
-        <Route path="entreprise/:Id" element={<ProfessorsItem />} />
+        <Route path="entreprise/add" element={< EntrepriseAdd />} />
         <Route path="entreprise/:Id/edit" element={<ProfessorsEdit />} /> */}
 
 

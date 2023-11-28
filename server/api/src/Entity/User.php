@@ -45,12 +45,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user','progression'])]
     private array $roles = [];
 
-    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'users',cascade: ["remove"])]
     #[Groups(['user_courses'])]
     #[MaxDepth(1)]
     private Collection $courses;
 
-    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'users', cascade: ["remove"])]
     #[Groups(['user_instruments','progression'])]
     #[MaxDepth(1)]
     private Collection $instruments;
@@ -60,15 +60,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[MaxDepth(1)]
     private Collection $comments;
 
-    #[ORM\OneToMany(mappedBy: 'professor', targetEntity: Course::class)]
+    #[ORM\OneToMany(mappedBy: 'professor', targetEntity: Course::class ,cascade: ["remove"])]
     #[Groups(['user_coursesGiven'])]
     private Collection $coursesGiven;
     
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Forum::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Forum::class ,cascade: ["remove"])]
     #[Groups(['user_forums'])]
     private Collection $forums;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Answer::class , cascade: ["remove"])]
     #[Groups(['user_responses'])]
     private Collection $responses;
 
@@ -83,19 +83,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Rating::class)]
     private Collection $ratings;
 
-    #[ORM\ManyToMany(targetEntity: HistoQuizz::class, mappedBy: 'User')]
+    #[ORM\ManyToMany(targetEntity: HistoQuizz::class, mappedBy: 'User',cascade: ["remove"])]
     private Collection $histoQuizzs;
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class, orphanRemoval: true)]
     private Collection $messages;
 
-    #[ORM\OneToMany(mappedBy: 'userOne', targetEntity: Conversation::class)]
+    #[ORM\OneToMany(mappedBy: 'userOne', targetEntity: Conversation::class,cascade: ["remove"])]
     private Collection $conversations;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[Groups(['user','progression'])]
     private ?Subscription $subscription = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Progression::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Progression::class ,cascade: ["remove"])]
     private Collection $progressions;
 
     #[ORM\OneToOne(targetEntity: Images::class, inversedBy: "user", cascade: ["persist", "remove"])]

@@ -18,13 +18,11 @@ const StudentsList: FC<StudentsListProps> = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentData = datas !== null ? datas.slice(startIndex, endIndex ) : [];
   const totalPages =  datas !== null ? Math.ceil(datas.length / itemsPerPage) : 0;
-  const [professorsToDelete, setProfessorsToDelete] = useState<number[] >([]);
+  const [usersToDelete, setUsersToDelete] = useState<number[] >([]);
 
-  const handleAdd = () => {
-    navigateTo(`/professors/add`);
-  };
+
   const handleDeleteMultiple = async () => {
-    // await courseService.courseDeleteMany({ courseIds: courseToDelete });
+    await usersService.usersDeleteMany({ usersIds: usersToDelete });
     window.location.reload();
   };
 
@@ -35,7 +33,7 @@ const StudentsList: FC<StudentsListProps> = () => {
   };
 
   const handleChange = (courseToDelete: number) => {
-    setProfessorsToDelete(prevArray => {
+    setUsersToDelete(prevArray => {
       const index = prevArray.indexOf(courseToDelete);
       if (index !== -1) {
         const newArray = [...prevArray];
@@ -81,7 +79,7 @@ const StudentsList: FC<StudentsListProps> = () => {
           {currentData.map((value : any, index : any) => (
             <tr key={index} >
               <td className='txt'>
-                <input type='checkbox' checked={professorsToDelete.includes(value.id)} onChange={()=> handleChange(value.id)}></input>
+                <input type='checkbox' checked={usersToDelete.includes(value.id)} onChange={()=> handleChange(value.id)}></input>
               </td>
               <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} >
                 {value.photo && (

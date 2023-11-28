@@ -61,6 +61,8 @@ class AuthController extends AbstractController
 
         if (str_contains($data['email'], '@saline')) {
             $user->setRoles(['ROLE_ADMIN']);
+        } elseif ( $roles && $roles === 'ROLE_SUPER_ADMIN' && str_contains($data['email'], '@saline-dev') ) {
+            $user->setRoles(['ROLE_SUPER_ADMIN']);
         } elseif ( $roles && $roles === 'ROLE_PROFESSOR') {
             $user->setRoles(['ROLE_PROFESSOR']);
         } else {
