@@ -25,7 +25,7 @@ const ProfessorsList: FC<ProfessorsListProps> = () => {
   };
   const handleDeleteMultiple = async () => {
     await usersService.usersDeleteMany({ usersIds: professorsToDelete });
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handlePageChange = (newPage : number) => {

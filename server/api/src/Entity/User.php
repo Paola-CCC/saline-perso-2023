@@ -108,6 +108,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'userTwo', targetEntity: Conversation::class ,cascade: ["remove"])]
     private Collection $conversations_two;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Rating::class, cascade: ["remove"])]
+    private Collection $ratingsUsers;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -123,6 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->image = null;
         $this->conversations_One = new ArrayCollection();
         $this->conversations_two = new ArrayCollection();
+        $this->ratingsUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -603,6 +607,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($conversationsTwo->getUserTwo() === $this) {
                 $conversationsTwo->setUserTwo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatingsUsers(): Collection
+    {
+        return $this->ratingsUsers;
+    }
+
+    public function addRatingsUser(Rating $ratingsUser): static
+    {
+        if (!$this->ratingsUsers->contains($ratingsUser)) {
+            $this->ratingsUsers->add($ratingsUser);
+            $ratingsUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRatingsUser(Rating $ratingsUser): static
+    {
+        if ($this->ratingsUsers->removeElement($ratingsUser)) {
+            // set the owning side to null (unless already changed)
+            if ($ratingsUser->getUser() === $this) {
+                $ratingsUser->setUser(null);
             }
         }
 
