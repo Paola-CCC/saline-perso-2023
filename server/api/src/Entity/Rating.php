@@ -18,10 +18,6 @@ class Rating
     #[Groups(['rating'])]
     private ?int $value = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ratings')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['rating'])]
-    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'ratings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -41,18 +37,6 @@ class Rating
     public function setValue(int $value): static
     {
         $this->value = $value;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }

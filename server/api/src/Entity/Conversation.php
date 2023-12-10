@@ -17,12 +17,12 @@ class Conversation
     #[Groups([ 'conversation' , 'messages'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'conversations')]
+    #[ORM\ManyToOne(inversedBy: 'conversations_One')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([ 'conversation' , 'messages'])]
     private ?User $userOne = null;
 
-    #[ORM\ManyToOne(inversedBy: 'conversations')]
+    #[ORM\ManyToOne(inversedBy: 'conversations_two')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups([ 'conversation' , 'messages'])]
     private ?User $userTwo = null;

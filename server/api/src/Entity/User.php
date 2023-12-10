@@ -50,12 +50,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[MaxDepth(1)]
     private Collection $courses;
 
-    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'users', cascade: ["remove"])]
+    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'users')]
     #[Groups(['user_instruments','progression'])]
     #[MaxDepth(1)]
     private Collection $instruments;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class,cascade: ["remove"])]
     #[Groups(['user_comments'])]
     #[MaxDepth(1)]
     private Collection $comments;
@@ -80,16 +80,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user', 'course_users','progression'])]
     private ?string $biography = null;
     
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Rating::class)]
-    private Collection $ratings;
 
     #[ORM\ManyToMany(targetEntity: HistoQuizz::class, mappedBy: 'User',cascade: ["remove"])]
     private Collection $histoQuizzs;
+
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Message::class, orphanRemoval: true)]
     private Collection $messages;
-
-    #[ORM\OneToMany(mappedBy: 'userOne', targetEntity: Conversation::class,cascade: ["remove"])]
-    private Collection $conversations;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[Groups(['user','progression'])]
@@ -106,6 +102,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
 
+    #[ORM\OneToMany(mappedBy: 'userOne', targetEntity: Conversation::class ,cascade: ["remove"])]
+    private Collection $conversations_One;
+
+    #[ORM\OneToMany(mappedBy: 'userTwo', targetEntity: Conversation::class ,cascade: ["remove"])]
+    private Collection $conversations_two;
 
     public function __construct()
     {
@@ -115,13 +116,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->coursesGiven = new ArrayCollection();
         $this->forums = new ArrayCollection();
         $this->responses = new ArrayCollection();
-        $this->ratings = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->histoQuizzs = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->conversations = new ArrayCollection();
         $this->progressions = new ArrayCollection();
         $this->image = null;
+        $this->conversations_One = new ArrayCollection();
+        $this->conversations_two = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -430,36 +431,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     
     /**
-     * @return Collection<int, Rating>
-     */
-    public function getRatings(): Collection
-    {
-        return $this->ratings;
-    }
-
-    public function addRating(Rating $rating): static
-    {
-        if (!$this->ratings->contains($rating)) {
-            $this->ratings->add($rating);
-            $rating->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRating(Rating $rating): static
-    {
-        if ($this->ratings->removeElement($rating)) {
-            // set the owning side to null (unless already changed)
-            if ($rating->getUser() === $this) {
-                $rating->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, HistoQuizz>
      */
     public function getHistoQuizzs(): Collection
@@ -518,35 +489,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Conversation>
-     */
-    public function getConversations(): Collection
-    {
-        return $this->conversations;
-    }
-
-    public function addConversation(Conversation $conversation): static
-    {
-        if (!$this->conversations->contains($conversation)) {
-            $this->conversations->add($conversation);
-            $conversation->setUserOne($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConversation(Conversation $conversation): static
-    {
-        if ($this->conversations->removeElement($conversation)) {
-            // set the owning side to null (unless already changed)
-            if ($conversation->getUserOne() === $this) {
-                $conversation->setUserOne(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getSubscription(): ?Subscription
     {
@@ -603,6 +545,67 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $image->setUser($this);
         }
     
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversationsOne(): Collection
+    {
+        return $this->conversations_One;
+    }
+
+    public function addConversationsOne(Conversation $conversationsOne): static
+    {
+        if (!$this->conversations_One->contains($conversationsOne)) {
+            $this->conversations_One->add($conversationsOne);
+            $conversationsOne->setUserOne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationsOne(Conversation $conversationsOne): static
+    {
+        if ($this->conversations_One->removeElement($conversationsOne)) {
+            // set the owning side to null (unless already changed)
+            if ($conversationsOne->getUserOne() === $this) {
+                $conversationsOne->setUserOne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversationsTwo(): Collection
+    {
+        return $this->conversations_two;
+    }
+
+    public function addConversationsTwo(Conversation $conversationsTwo): static
+    {
+        if (!$this->conversations_two->contains($conversationsTwo)) {
+            $this->conversations_two->add($conversationsTwo);
+            $conversationsTwo->setUserTwo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationsTwo(Conversation $conversationsTwo): static
+    {
+        if ($this->conversations_two->removeElement($conversationsTwo)) {
+            // set the owning side to null (unless already changed)
+            if ($conversationsTwo->getUserTwo() === $this) {
+                $conversationsTwo->setUserTwo(null);
+            }
+        }
+
         return $this;
     }
 

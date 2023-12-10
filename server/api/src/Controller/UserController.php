@@ -157,20 +157,20 @@ class UserController extends AbstractController
         return new JsonResponse(['message' => 'User updated successfully'], 200);
     }
 
-    // #[Route('/users-delete/{userID}', name: 'app_user_delete', methods: ['DELETE'])]
-    // public function delete(int $userID): Response
-    // {
-    //     $user = $this->doctrine->getRepository(User::class)->find($userID);
+    #[Route('/users-delete/{userID}', name: 'app_user_delete', methods: ['DELETE'])]
+    public function delete(int $userID): Response
+    {
+        $user = $this->doctrine->getRepository(User::class)->find($userID);
 
-    //     if (!$user) {
-    //         return new JsonResponse(['error' => 'User not found'], 404);
-    //     }
+        if (!$user) {
+            return new JsonResponse(['error' => 'User not found'], 404);
+        }
 
-    //     $this->entityManager->remove($user);
-    //     $this->entityManager->flush();
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
 
-    //     return new JsonResponse(['message' => 'User deleted successfully'], 200);
-    // }
+        return new JsonResponse(['message' => 'User deleted successfully'], 200);
+    }
 
 
 
