@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import './CategoriesAdd.scss';
 import Button from '../../../atoms/Button/Button';
 import InputText from '../../../atoms/InputText/InputText';
-import { instrumentService } from '../../../../services/Courses/InstrumentService';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import { categoriesService } from '../../../../services/Courses/CategoriesService';
 
@@ -11,7 +10,6 @@ interface CategoriesAddProps {}
 const CategoriesAdd: FC<CategoriesAddProps> = () => { 
 
   const [courseCreationIsSuccesful, setCourseCreationIsSuccesful] = useState< boolean | null > (null);
-  const [instrumentName, setInstrumentName] = useState<string>('');
   const { navigateTo } = useGoNavigate();
   const [categoryName, setCategoryName] = useState('');
 
@@ -19,7 +17,6 @@ const CategoriesAdd: FC<CategoriesAddProps> = () => {
 
   const clearNewCourse = () => {
     setCourseCreationIsSuccesful(null);
-    setInstrumentName('');
   };
 
   const handleAdd = () => {

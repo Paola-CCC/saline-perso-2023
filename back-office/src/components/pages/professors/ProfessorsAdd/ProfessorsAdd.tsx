@@ -71,7 +71,7 @@ const ProfessorsAdd: FC<ProfessorsAddProps> = () => {
         instruments:selectedOptions  
       }
 
-      let dataToken = await usersService.register(datasRegister);
+      await usersService.register(datasRegister);
     
     } catch (error) {
       console.error('Error creating course', error);
@@ -106,6 +106,15 @@ const ProfessorsAdd: FC<ProfessorsAddProps> = () => {
   
   }, [optionsInstruments,selectedOptions])
 
+
+
+  if( usersCreationIsSuccesful ) {
+    return (
+      <>
+      </>
+    )
+
+  }
 
   return (
     <div className='container-global-add'>

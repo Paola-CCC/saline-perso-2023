@@ -28,7 +28,7 @@ const EntrepriseAdd: FC<EntrepriseAddProps> = () => {
     },
   ]
 
-  const [usersCreationIsSuccesful, setUsersCreationIsSuccesful] = useState< boolean | null > (null);
+  const [usersEntrepriseCreationIsSuccesful, setUsersEntrepriseCreationIsSuccesful] = useState< boolean | null > (null);
   const [newUsers, setNewUsers] = useState(initialStateNewUsers);
 
   const { navigateTo } = useGoNavigate();
@@ -39,7 +39,7 @@ const EntrepriseAdd: FC<EntrepriseAddProps> = () => {
   };
 
   const clearNewCourse = () => {
-    setUsersCreationIsSuccesful(null);
+    setUsersEntrepriseCreationIsSuccesful(null);
     setNewUsers(initialStateNewUsers);
   };
 
@@ -52,13 +52,22 @@ const EntrepriseAdd: FC<EntrepriseAddProps> = () => {
 
     try {
       
-      let dataToken = await usersService.register(newUsers);
+      await usersService.register(newUsers);
     
     } catch (error) {
       console.error('Error creating course', error);
     }
   };
 
+
+
+if( usersEntrepriseCreationIsSuccesful ) {
+  return (
+    <>
+    </>
+  )
+
+}
 
   return (
     <div className='container-global-add'>

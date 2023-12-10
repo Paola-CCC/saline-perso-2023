@@ -43,7 +43,7 @@ const RoutesNavigation = () => {
 
         <Route path="entreprise" element={< EntrepriseList />} />
         <Route path="entreprise/add" element={< EntrepriseAdd />} />
-        <Route path="entreprise/:Id/edit" element={<ProfessorsEdit />} /> */}
+        <Route path="entreprise/:Id/edit" element={<ProfessorsEdit />} />
 
 
     </Routes>

@@ -11,7 +11,7 @@ export { default as CourseEdit } from './courses/CourseEdit/CourseEdit';
 export { default as CourseDelete } from './courses/CourseDelete/CourseDelete';
 
 export { default as Login } from './authentification/Login/Login';
-export { default as Register } from './authentification/Register/Register';
+// export { default as Register } from './authentification/Register/Register';
 
 export { default as CategoriesList } from './categories/CategoriesList/CategoriesList';
 export { default as CategoriesAdd } from './categories/CategoriesAdd/CategoriesAdd';

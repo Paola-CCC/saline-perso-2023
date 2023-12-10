@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useAuthContext } from "../../../../contexts/AuthContext";
 import InputText from "../../../atoms/InputText/InputText";
-import jwt_decode from "jwt-decode";
 import Button from "../../../atoms/Button/Button";
 
 const Login = () => {
   
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successLogin, setSuccessLogin] = useState<false | true | null>(null);
-  const { setIsAuthenticated, setUserRole, setUserId ,usersService } = useAuthContext();
+  const { setIsAuthenticated ,usersService } = useAuthContext();
 
   const handleSubmit = async (e : any) => {
     e.preventDefault();
@@ -26,6 +23,7 @@ const Login = () => {
       
       if (response && response.token !== '' && response.token !== undefined) {
         localStorage.setItem('jwt', JSON.stringify(response.token));
+        setSuccessLogin(true);
         setIsAuthenticated(true);
 
       } else {
@@ -68,10 +66,10 @@ const Login = () => {
           </Button>
         </div>
 
-        <p className="link-btn">
+        {/* <p className="link-btn">
           Vous n'avez pas encore de compte ?
           <Link to="/register"> S'inscrire </Link>
-        </p>
+        </p> */}
       </form>
       <div
         className={
