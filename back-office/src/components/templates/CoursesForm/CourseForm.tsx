@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, FC} from 'react';
-import { courseService } from '../../../services/Courses/CourseService';
+import { courseService } from '../../../services/courses/courseService';
 import InputText from '../../atoms/InputText/InputText';
 import InputSelect from '../../atoms/InputSelect/InputSelect';
 import { User } from '../../../models/types/user.types';

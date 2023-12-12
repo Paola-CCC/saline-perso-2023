@@ -23,4 +23,16 @@ export { default as ComposersEdit } from './composers/ComposersEdit/ComposersEdi
 
 export { default as ProfessorsAdd } from './professors/ProfessorsAdd/ProfessorsAdd';
 export { default as ProfessorsList } from './professors/ProfessorsList/ProfessorsList';
+export { default as ProfessorsItem } from './professors/ProfessorsItem/ProfessorsItem';
 export { default as ProfessorsEdit } from './professors/ProfessorsEdit/ProfessorsEdit';
+
+export { default as EntrepriseAdd } from './entreprise/EntrepriseAdd/EntrepriseAdd';
+export { default as EntrepriseList } from './entreprise/EntrepriseList/EntrepriseList';
+export { default as EntrepriseItem } from './entreprise/EntrepriseItem/EntrepriseItem';
+export { default as EntrepriseEdit } from './entreprise/EntrepriseEdit/EntrepriseEdit';
+
+export { default as StudentsList } from './students/StudentsList/StudentsList';
+export { default as StudentsItem } from './students/StudentsItem/StudentsItem';
+
+export { default as ForumList } from './forum/ForumList/ForumList';
+export { default as ForumItem } from './forum/ForumItem/ForumItem';

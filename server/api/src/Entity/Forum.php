@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ForumRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use IntlDateFormatter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ForumRepository::class)]
@@ -90,7 +91,10 @@ class Forum
     public function getCreatedAt(): ?string
     {
         if ($this->createdAt instanceof \DateTimeImmutable) {
-            return $this->createdAt->format('Y-m-d H:i:s');
+            $locale = 'fr_FR';
+            $formatter = new IntlDateFormatter($locale, IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+            $formatter->setPattern('dd/MM/yyyy HH:mm');
+            return $formatter->format($this->createdAt);
         }   
 
         return null;

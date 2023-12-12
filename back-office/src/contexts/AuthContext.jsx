@@ -2,7 +2,7 @@ import React, {  useCallback, useContext, useEffect, useMemo } from 'react';
 import { createContext,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import { usersService } from '../services/Users/UsersService';
+import { usersService } from '../services/users/UsersService';
 
 const AuthContext = createContext();
 const useAuthContext = () => useContext(AuthContext);

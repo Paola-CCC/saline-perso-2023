@@ -3,7 +3,7 @@ import './ProfessorsList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { usersService } from '../../../../services/Users/UsersService';
+import { usersService } from '../../../../services/users/UsersService';
 import { IUsers } from '../../../../models/Interfaces/users';
 
 interface ProfessorsListProps {}
@@ -54,7 +54,6 @@ const ProfessorsList: FC<ProfessorsListProps> = () => {
         let datas = await usersService.showProfessorsList();
         if (datas !== undefined){
           setDatas(datas);
-
         }
       };
       loadDatas();
@@ -72,7 +71,7 @@ const ProfessorsList: FC<ProfessorsListProps> = () => {
             <th> </th>
             <th>Photo</th>
             <th>Id</th>
-            <th className='name-course'>Nom et Prénom</th>
+            <th className='name-course'>Nom Prénom</th>
             <th className='name-course'>Email</th>
             <th>Biographie</th>
             <th>Date de création</th>

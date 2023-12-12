@@ -3,7 +3,7 @@ import './CategoriesAdd.scss';
 import Button from '../../../atoms/Button/Button';
 import InputText from '../../../atoms/InputText/InputText';
 import { useGoNavigate } from '../../../../hooks/Navigation';
-import { categoriesService } from '../../../../services/Courses/CategoriesService';
+import { categoriesService } from '../../../../services/courses/categoriesService';
 
 interface CategoriesAddProps {}
 

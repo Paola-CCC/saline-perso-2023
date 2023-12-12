@@ -1,7 +1,7 @@
 import RatingStars from '../../../atoms/RatingStars/RatingStars';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import { useEffect, useState } from 'react';
-import { courseService } from '../../../../services/Courses/CourseService';
+import { courseService } from '../../../../services/courses/courseService';
 import "./CoursesList.scss";
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import Pagination from '../../../molecules/Pagination/Pagination';

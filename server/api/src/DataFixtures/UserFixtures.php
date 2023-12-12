@@ -41,8 +41,22 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                     ->setPassword(password_hash('87654321', PASSWORD_DEFAULT))
                     ->setPhoto($this->faker->imageUrl(640, 480, 'people', true))
                     ->setRoles(['ROLE_SUPER_ADMIN']);
-                    
-                $manager->persist($user);
+                    $manager->persist($user);
+
+                for ($i = 0; $i < 8; $i++) {
+                    $firstnameAdmin = $this->faker->firstName;
+                    $lastNameAdmin = $this->faker->lastName;
+                    $userAdmin = new User();
+                    $userAdmin->setFirstName($firstnameAdmin)
+                    ->setLastName($lastNameAdmin)
+                    ->setEmail( $firstnameAdmin.'.'.$lastNameAdmin.'@saline-dev.com')
+                    ->setUsername($firstnameAdmin. '@' . $lastNameAdmin)
+                    ->setPassword(password_hash('87654321', PASSWORD_DEFAULT))
+                    ->setPhoto($this->faker->imageUrl(640, 480, 'people', true))
+                    ->setRoles(['ROLE_SUPER_ADMIN']);
+                    $manager->persist($userAdmin);
+
+                }
                     
                 for ($i = 0; $i < 10; $i++) {
                     $profNames = explode(" ", $this->faker->name());

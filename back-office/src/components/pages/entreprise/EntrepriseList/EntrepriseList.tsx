@@ -3,7 +3,7 @@ import './EntrepriseList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { usersService } from '../../../../services/Users/UsersService';
+import { usersService } from '../../../../services/users/UsersService';
 import { IUsers } from '../../../../models/Interfaces/users';
 
 interface EntrepriseListProps {}
@@ -51,10 +51,9 @@ const EntrepriseList: FC<EntrepriseListProps> = () => {
     
     if(localStorage.getItem("jwt") && localStorage.getItem("jwt") !== '') {
       const loadDatas = async () => {
-        let datas = await usersService.showEntrepriseList();
+        let datas = await usersService.showEntrepriseList();   
         if (datas !== undefined){
           setDatas(datas);
-
         }
       };
       loadDatas();
@@ -75,8 +74,9 @@ const EntrepriseList: FC<EntrepriseListProps> = () => {
             <th> </th>
             <th>Photo</th>
             <th>Id</th>
-            <th className='name-course'>Nom et Prénom</th>
+            <th className='name-course'>Nom Prénom</th>
             <th className='name-course'>Email</th>
+            <th className='name-course'>Rôle</th>
             <th>Date de création</th>
           </tr>
         </thead>
@@ -96,6 +96,7 @@ const EntrepriseList: FC<EntrepriseListProps> = () => {
               <td className='txt item-id' > { value?.id > 9 ? value.id : `0${value?.id}`} </td>
               <td className='txt name-course' >{`${value?.firstName} ${value?.lastName}`}</td>
               <td className='txt' >{value?.email}</td>
+              <td className='txt' >{value?.roles[0]}</td>
               <td className='txt' >{value.createdAt}</td>
             </tr>
           ))}

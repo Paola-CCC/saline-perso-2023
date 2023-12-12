@@ -4,14 +4,12 @@ export enum UserRoles {
     professor = 'ROLE_PROFESSOR',
     admin = 'ROLE_ADMIN',
     superAdmin = 'ROLE_SUPER_ADMIN',
-  };
-
-
+};
 
 export type User = {
-    id: number;
-    firstName: string;
-    lastName: string;
+    id?: number;
+    firstName?: string;
+    lastName?: string;
     password?: string;
     email?: string | undefined | null;
     photo?: string | null | undefined;

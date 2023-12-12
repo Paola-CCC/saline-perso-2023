@@ -78,7 +78,7 @@ class UserController extends AbstractController
         $usersList = $userRepository->findAll();
         $studentsList = array();
         foreach ($usersList as $user) {
-            if($user->getRoles()[0] == 'ROLE_ADMIN'){
+            if($user->getRoles()[0] == 'ROLE_ADMIN' || $user->getRoles()[0] == 'ROLE_SUPER_ADMIN' ){
                 array_push($studentsList, $user);
             }
         }

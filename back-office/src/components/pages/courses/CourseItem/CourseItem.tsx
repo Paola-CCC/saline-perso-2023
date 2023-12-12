@@ -3,7 +3,7 @@ import './CourseItem.scss';
 import { useParams } from 'react-router-dom';
 import ButtonGroupItem from '../../../molecules/ButtonGroupItem/ButtonGroupItem';
 import { useGoNavigate } from '../../../../hooks/Navigation';
-import { courseService } from '../../../../services/Courses/CourseService';
+import { courseService } from '../../../../services/courses/courseService';
 import Button from '../../../atoms/Button/Button';
 import RatingStars from '../../../atoms/RatingStars/RatingStars';
 

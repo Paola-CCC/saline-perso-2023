@@ -22,7 +22,7 @@ class ForumFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
 
 
-        for ( $i = 0; $i < 10; $i++)
+        for ( $i = 0; $i < 30; $i++)
         {
             $forumInsert = new Forum();
             $forumInsert->setSubject($faker->sentence());
@@ -31,9 +31,6 @@ class ForumFixtures extends Fixture implements DependentFixtureInterface
             $forumInsert->addCategory($categories[array_rand($categories)]);
             $manager->persist($forumInsert);
         }
-        // $product = new Product();
-        //description, subject, author, addCategory
-        // $manager->persist($product);
 
         $manager->flush();
     }

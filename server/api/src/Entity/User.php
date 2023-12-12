@@ -411,7 +411,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getCreatedAt(): ?string
     {
         if ($this->createdAt instanceof \DateTimeImmutable) {
-            return $this->createdAt->format('Y-m-d H:i');
+            return $this->createdAt->format('d/m/Y H:i');
         }   
 
         return null;

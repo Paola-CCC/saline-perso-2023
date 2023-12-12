@@ -5,8 +5,8 @@ import InputText from '../../../atoms/InputText/InputText';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import InputSelect from '../../../atoms/InputSelect/InputSelect';
 import { Instrument } from '../../../../models/types/courses.types';
-import { courseService } from '../../../../services/Courses/CourseService';
-import { composersService } from '../../../../services/Courses/ComposersService';
+import { courseService } from '../../../../services/courses/courseService';
+import { composersService } from '../../../../services/courses/composersService';
 
 interface ComposersAddProps { }
 

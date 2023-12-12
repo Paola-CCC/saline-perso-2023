@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import './InstrumentAdd.scss';
 import Button from '../../../atoms/Button/Button';
 import InputText from '../../../atoms/InputText/InputText';
-import { instrumentService } from '../../../../services/Courses/InstrumentService';
+import { instrumentService } from '../../../../services/courses/instrumentService';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 
 interface InstrumentAddProps {}

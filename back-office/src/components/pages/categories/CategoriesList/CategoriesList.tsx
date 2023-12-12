@@ -3,7 +3,7 @@ import './CategoriesList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { categoriesService } from '../../../../services/Courses/CategoriesService';
+import { categoriesService } from '../../../../services/courses/categoriesService';
 
 interface CategoriesListProps {}
 

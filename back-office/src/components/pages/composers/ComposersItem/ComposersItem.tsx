@@ -3,7 +3,7 @@ import './ComposersItem.scss';
 import ButtonGroupItem from '../../../molecules/ButtonGroupItem/ButtonGroupItem';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import { useParams } from 'react-router-dom';
-import { composersService } from '../../../../services/Courses/ComposersService';
+import { composersService } from '../../../../services/courses/composersService';
 
 interface ComposersItemProps {}
 

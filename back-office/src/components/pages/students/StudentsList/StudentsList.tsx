@@ -3,7 +3,7 @@ import './StudentsList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { usersService } from '../../../../services/Users/UsersService';
+import { usersService } from '../../../../services/users/UsersService';
 import { IUsers } from '../../../../models/Interfaces/users';
 
 interface StudentsListProps {}
@@ -70,7 +70,7 @@ const StudentsList: FC<StudentsListProps> = () => {
             <th> </th>
             <th>Photo</th>
             <th>Id</th>
-            <th className='name-course'>Nom et Prénom</th>
+            <th className='name-course'>Nom Prénom</th>
             <th className='name-course'>Email</th>
             <th>Date de création</th>
           </tr>
@@ -81,22 +81,22 @@ const StudentsList: FC<StudentsListProps> = () => {
               <td className='txt'>
                 <input type='checkbox' checked={usersToDelete.includes(value.id)} onChange={()=> handleChange(value.id)}></input>
               </td>
-              <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} >
+              <td className='zone-img' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)} >
                 {value.photo && (
                   <div className='img-courses'>
                       <img src={value.photo} alt={'86'} className="card-img" />
                   </div>
                 )}
               </td>
-              <td className='txt item-id' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} > { value?.id > 9 ? value.id : `0${value?.id}`} </td>
-              <td className='txt name-course' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} >{`${value?.firstName} ${value?.lastName}`}</td>
-              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} >{value?.email}</td>
-              {/* <td className='txt biography' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)}> 
+              <td className='txt item-id' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)} > { value?.id > 9 ? value.id : `0${value?.id}`} </td>
+              <td className='txt name-course' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)} >{`${value?.firstName} ${value?.lastName}`}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)} >{value?.email}</td>
+              {/* <td className='txt biography' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)}> 
                 <div>
                 { value?.biography &&  value?.biography !== '' ?  value?.biography  : 'absence de données' } 
                 </div>
               </td>               */}
-              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/professors/${value.id}`)} >{value.createdAt}</td>
+              <td className='txt' tabIndex={0} onClick={() => navigateTo(`/students/${value.id}`)} >{value.createdAt}</td>
             </tr>
           ))}
         </tbody>

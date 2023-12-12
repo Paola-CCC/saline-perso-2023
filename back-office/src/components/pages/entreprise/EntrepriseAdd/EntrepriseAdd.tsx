@@ -3,7 +3,7 @@ import './EntrepriseAdd.scss';
 import InputText from '../../../atoms/InputText/InputText';
 import Button from '../../../atoms/Button/Button';
 import { useGoNavigate } from '../../../../hooks/Navigation';
-import { usersService } from '../../../../services/Users/UsersService';
+import { usersService } from '../../../../services/users/UsersService';
 import InputRadio from '../../../atoms/InputRadio/InputRadio';
 
 interface EntrepriseAddProps {}

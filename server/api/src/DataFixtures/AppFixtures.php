@@ -21,7 +21,6 @@ class AppFixtures extends Fixture
 
         $composers = ['Ludwig Van Beethoven', 'Wolgang A. Mozart', 'Agustin B. Mangoré', 'Johan Sebastian Bach', 'Franz Liszt', 'Antonio Vivaldi', 'Francisco Tarrega', 'Giuseppe Verdi', 'Claude Debussy', 'Hans Zimmerman'];
         $instrumentsInstances = $manager->getRepository(Instrument::class)->findAll();
-        // dd($instrumentsInstances);
 
         forEach($composers as $composer) {
             $composerInstance = new Composer();
@@ -31,7 +30,6 @@ class AppFixtures extends Fixture
             $manager->persist($composerInstance);
         }   
 
-        // generate prof user
         for ( $i = 0; $i < 10; $i++)
         {
             $profNames = explode(" ", $faker->name());

@@ -3,7 +3,7 @@ import './InstrumentsList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { instrumentService } from '../../../../services/Courses/InstrumentService';
+import { instrumentService } from '../../../../services/courses/instrumentService';
 
 interface InstrumentsListProps {}
 

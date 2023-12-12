@@ -77,7 +77,7 @@ const Sidebar: FC<SidebarProps> = () => {
         <img src={logoImage}  alt="img-logo"   />
       </div>
       <ul className="sidebar-list">
-          <li className="sidebar-item">
+          {/* <li className="sidebar-item">
             <button 
               className="accordion" 
               id='homepage-datas' 
@@ -86,7 +86,7 @@ const Sidebar: FC<SidebarProps> = () => {
             <FontAwesomeIcon icon={faChartLine} />
               Tableau de bord
             </button>
-          </li>
+          </li> */}
 
           <li className="sidebar-item">
             <button className="accordion" id='course-settings' onClick={(e)=> addClassActive('/courses')} >
@@ -97,15 +97,15 @@ const Sidebar: FC<SidebarProps> = () => {
                   <Link className="link-sidebar" to="/courses">Cours</Link>
               </li>
               <li className="sidebar-item-nested">
+                  <Link className="link-sidebar" to="/composers">Compositeurs</Link>
+              </li>
+              <li className="sidebar-item-nested">
                 <Link className="link-sidebar" to="/instruments">Instruments</Link>
               </li>
-
               <li className="sidebar-item-nested">
                   <Link className="link-sidebar" to="/categories">Catégories</Link>
               </li>
-              <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/composers">Compositeurs</Link>
-              </li>
+
             </ul>
           </li>
 
@@ -115,10 +115,10 @@ const Sidebar: FC<SidebarProps> = () => {
             </button>
             <ul className="panel">
               <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/professors">Professeurs</Link>
+                <Link className="link-sidebar" to="/students">Élèves</Link>
               </li>
               <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/students">Élèves</Link>
+                <Link className="link-sidebar" to="/professors">Professeurs</Link>
               </li>
               <li className="sidebar-item-nested">
                 <Link className="link-sidebar" to="/entreprise">Équipe entreprise</Link>

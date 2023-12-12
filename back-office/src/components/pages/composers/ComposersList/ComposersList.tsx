@@ -3,7 +3,7 @@ import './ComposersList.scss';
 import ButtonGroupList from '../../../molecules/ButtonGroupList/ButtonGroupList';
 import { useGoNavigate } from '../../../../hooks/Navigation';
 import Pagination from '../../../molecules/Pagination/Pagination';
-import { composersService } from '../../../../services/Courses/ComposersService';
+import { composersService } from '../../../../services/courses/composersService';
 
 interface ComposersListProps {}
 
@@ -72,9 +72,9 @@ const ComposersList: FC<ComposersListProps> = () => {
             <th> </th>
             <th>Photos</th>
             <th>Id</th>
-            <th className='txt fullname'>Nom et Prénom </th>
-            <th>biographie </th>
-            <th>Nmbr de cours </th>
+            <th className='txt fullname'>Nom Prénom </th>
+            <th>Biographie </th>
+            <th>Nombre de cours </th>
           </tr>
         </thead>
         <tbody>

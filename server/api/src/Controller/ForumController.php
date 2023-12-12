@@ -145,4 +145,28 @@ class ForumController extends AbstractController
 
         return new Response('Topic forum deleted successfully', Response::HTTP_OK);
     }
+
+    #[Route('/forums-delete-many', name: 'forums_delete_many', methods: ['DELETE'])]
+    public function deleteForumsMany(Request $request, ForumRepository $forumRepository): JsonResponse
+    {
+        $forumsIds = $request->query->get('forumsIds');
+
+        if (!$forumsIds) {
+            return new JsonResponse(['message' => 'No forums IDs provided'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $forumsIds = json_decode($forumsIds, true);
+
+        foreach ($forumsIds as $forumId) {
+            $forum = $forumRepository->find($forumId);
+
+            if ($forum) {
+                $this->entityManager->remove($forum);
+            }
+        }
+
+        $this->entityManager->flush();
+
+        return new JsonResponse(['message' => 'Forums deleted successfully'], 200);
+    }
 }
