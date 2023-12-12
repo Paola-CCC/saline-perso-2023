@@ -16,7 +16,6 @@ import {
   EntrepriseList,
   ForumItem,
   ForumList,
-  Homepage,
   InstrumentAdd,
   InstrumentsList,
   ProfessorsAdd,
@@ -30,10 +29,7 @@ import {
 const RoutesNavigation = () => {
   return (
     <Routes>
-      <Route index path="/" element={<Homepage />} />
-      <Route path="homepage" element={<Homepage />} />
-
-      <Route  path="courses" element={<CoursesList />} />
+      <Route index path="courses" element={<CoursesList />} />
       <Route path="courses/add" element={<CourseAdd />} />
       <Route path="courses/:Id" element={<CourseItem />} />
       <Route path="courses/:Id/edit" element={<CourseEdit />} />

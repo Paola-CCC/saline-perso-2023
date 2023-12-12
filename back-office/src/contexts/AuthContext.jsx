@@ -7,20 +7,16 @@ import { usersService } from '../services/users/UsersService';
 const AuthContext = createContext();
 const useAuthContext = () => useContext(AuthContext);
 
-/** 
- * Context Provider va être utiliser pour délimiter les composants enfants qui pourront accéder à ses informations càd aux variables ci-dessous.
-*/
 const AuthContextProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userId, setUserId] = useState(null);
     const [userRole, setUserRole] = useState([]);
-    const [username, setUsername] = useState('Jeanne DUPONT');
+    const [username, setUsername] = useState('');
 
     const navigate = useNavigate();
     const token = localStorage.getItem('jwt') ? localStorage.getItem('jwt') : '';
     
-    /** Retire JWT du localstorage et change la variable du context */
     const handleLogout = useCallback(() => {
       if (localStorage.getItem('jwt')) {
         localStorage.removeItem("jwt");
@@ -56,7 +52,6 @@ const AuthContextProvider = ({children}) => {
     }, [isJWTinlocalStorage ,token,userId,isAuthenticated]);
 
   
-    /** Permet de stocker les variables du context getter et leur mutateur - fonction qui changent la/les valeurs  */
     const contextValue = useMemo(
       () => ({
         isAuthenticated,

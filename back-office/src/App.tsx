@@ -1,7 +1,7 @@
 import './App.scss';
+import { Login } from './components/pages';
 import { useAuthContext } from './contexts/AuthContext';
 import Layout from './layout/Layout';
-import PublicRoutes from './routes/PublicRoutes/PublicRoutes';
 
 const App: React.FC = () => {
   
@@ -9,10 +9,8 @@ const App: React.FC = () => {
 
   return (
     <div className="element">
-       {  isAuthenticated && isAuthenticated !== false ? 
-          (<Layout />) : 
-          (<PublicRoutes />)
-       }
+      { isAuthenticated && (<Layout />)}
+      { !localStorage.getItem('jwt') && (<Login />)}
     </div>
   );
 };

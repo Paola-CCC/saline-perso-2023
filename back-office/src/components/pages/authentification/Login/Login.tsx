@@ -3,13 +3,16 @@ import "./Login.scss";
 import { useAuthContext } from "../../../../contexts/AuthContext";
 import InputText from "../../../atoms/InputText/InputText";
 import Button from "../../../atoms/Button/Button";
+import { useGoNavigate } from "../../../../hooks/Navigation";
 
 const Login = () => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successLogin, setSuccessLogin] = useState<false | true | null>(null);
-  const { setIsAuthenticated ,usersService } = useAuthContext();
+  const { setIsAuthenticated , usersService } = useAuthContext();
+  const { navigateTo } = useGoNavigate();
+
 
   const handleSubmit = async (e : any) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ const Login = () => {
       if (response && response.token !== '' && response.token !== undefined) {
         localStorage.setItem('jwt', JSON.stringify(response.token));
         setSuccessLogin(true);
-        setIsAuthenticated(true);
+        navigateTo(`/courses`);
 
       } else {
           console.log("Le Token Register est vide");
