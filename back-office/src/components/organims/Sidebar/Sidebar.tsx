@@ -13,11 +13,13 @@ interface SidebarProps {}
 const Sidebar: FC<SidebarProps> = () => {
 
   const { navigateTo } = useGoNavigate();
+  
   const { canOpenSidebar,sidebarIsOpen} = useEffectsContext();
   const location = useLocation();
-  const path = location.pathname.split('/');
-  const currentPath = Array.from(path) && Array.from(path)[0] === '' ? Array.from(path)[1] : 'empty';
+  const { hash, pathname, search } = location;
+  const path = pathname.split('/');
 
+  const currentPath = Array.from(path) && Array.from(path)[0] === '' ? Array.from(path)[1] : 'empty';
 
   const handleOpenPanel = () => {
     let tabCourseSettings : string[] = ["courses","instruments","categories","composers"];
@@ -94,16 +96,16 @@ const Sidebar: FC<SidebarProps> = () => {
             </button>
             <ul className="panel">
               <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/courses">Cours</Link>
+                  <Link className={`link-sidebar ${currentPath === 'courses' ? 'active' : '' }`} to="/courses">Cours</Link>
               </li>
               <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/composers">Compositeurs</Link>
+                  <Link className={`link-sidebar ${currentPath === 'composers' ? 'active' : '' }`} to="/composers">Compositeurs</Link>
               </li>
               <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/instruments">Instruments</Link>
+                <Link className={`link-sidebar ${currentPath === 'instruments' ? 'active' : '' }`} to="/instruments">Instruments</Link>
               </li>
               <li className="sidebar-item-nested">
-                  <Link className="link-sidebar" to="/categories">Catégories</Link>
+                  <Link className={`link-sidebar ${currentPath === 'categories' ? 'active' : '' }`} to="/categories">Catégories</Link>
               </li>
 
             </ul>
@@ -115,13 +117,13 @@ const Sidebar: FC<SidebarProps> = () => {
             </button>
             <ul className="panel">
               <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/students">Élèves</Link>
+                <Link className={`link-sidebar ${currentPath === 'students' ? 'active' : '' }`} to="/students">Élèves</Link>
               </li>
               <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/professors">Professeurs</Link>
+                <Link className={`link-sidebar ${currentPath === 'professors' ? 'active' : '' }`} to="/professors">Professeurs</Link>
               </li>
               <li className="sidebar-item-nested">
-                <Link className="link-sidebar" to="/entreprise">Équipe entreprise</Link>
+                <Link className={`link-sidebar ${currentPath === 'entreprise' ? 'active' : '' }`} to="/entreprise">Équipe entreprise</Link>
               </li>
             </ul>
           </li>

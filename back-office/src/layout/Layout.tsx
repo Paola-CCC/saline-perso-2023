@@ -1,8 +1,8 @@
 import React from 'react'
 import Sidebar from '../components/organims/Sidebar/Sidebar';
 import "./Layout.scss";
-import RoutesNavigation from '../routes/RoutesNavigation';
 import Header from '../components/organims/Header/Header';
+import MainContent from '../components/organims/MainContent/MainContent';
 
 const Layout = () => {
   return (
@@ -12,9 +12,7 @@ const Layout = () => {
             <nav>
               <Header />
             </nav>
-            <main>
-              <RoutesNavigation />
-            </main>
+            <MainContent/>
         </div>
     </div>
   )
